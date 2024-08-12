@@ -1,0 +1,256 @@
+*{
+    box-sizing: border-box;
+    padding:0px;
+    margin: 0px;
+}
+
+.layout {
+    overflow-y: scroll;
+    display: grid;
+    background-color: #F6F5F7;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 10vh 5vh auto 15vh;
+    grid-template-areas: 
+      "header header"
+      "side search"
+      "side content"
+      "footer footer";
+}
+
+.side-inac{
+    grid-template-columns: 0px 1fr;
+}
+
+.navbar{
+    position: relative;
+    grid-area: header;
+    background-color: #D9E6DB;
+    display: flex;
+}
+.menu-i{
+    position: relative;
+    color: #084707;
+    margin-top:20px;
+    margin-left: 10px;
+}
+.logo{
+    width:60px;
+    height:fit-content;
+    margin: 5px;
+    margin-left:30px;
+    
+}
+
+.head-t{
+    display: flex;
+    flex-direction: column;
+    font-family: 'poppins';
+    color: #084707;
+    margin-left:10px;
+}
+
+.logo-1{
+    margin-top: 0px;
+    position: relative;
+    font-size:38px;
+    font-weight: bold;
+}
+.logo-2{
+    position: absolute;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    top:50px;
+    
+}
+.link-c{
+    display: flex;
+    gap:30px;
+}
+
+.lg-c{
+    font-family: 'Inter';
+    display: flex;
+    gap:10px;
+    align-self:center;
+}
+
+.lg-i{
+    text-decoration: none;
+    font-family: 'Inter';
+    font-size:18px;
+    color:#084707;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.6s ease;
+    padding: 8px 15px;
+}
+.nav-link{
+    align-self: center;
+    display: flex;
+    gap:10px;
+    margin-left:600px;
+}
+
+.link-n{
+    text-decoration: none;
+    font-family: 'Inter';
+    font-size:18px;
+    color:#084707;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: all 0.6s ease;
+
+}
+
+.link-n:hover{
+    background-color: #084707;
+    color: #F6F5F7;
+    transition: all 0.6s ease;
+    transform: translateY(-5px)
+}
+
+.link-n:active {
+    background-color: #053103; 
+    color: #F6F5F7;
+}
+
+.lg-i:hover{
+    background-color: #084707;
+    color: #F6F5F7;
+    transition: all 0.6s ease;
+    transform: translateY(-5px)
+}
+
+
+.sidebar1{
+    position: sticky;
+    grid-area:side;
+    background-color:white;
+    border-top-right-radius:5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.layout.hidden {
+    grid-template-columns: 0px 1fr;
+}
+
+.active{
+    display: block;
+}
+
+.side1-header{
+    margin-top:5px;
+    display: flex;
+    font-family: 'poppins';
+    justify-content: center;
+}
+
+.side1-h{
+    font-weight: bold;
+    color:#084707dd;
+    font-size:24px;
+    text-align: center;
+}
+
+.close1-i{
+    position: absolute;
+    margin-top: 5px;
+    color:#084707;
+    cursor: pointer;
+    right: 10px;
+}
+
+.user-card{
+    padding:10px;
+    display: flex;
+    align-items: center;
+    font-family: 'poppins';
+    font-size: 20px;
+    font-weight: 500;
+    color: #084707d6;
+    gap:20px;
+    background-color: #D9E6DB;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.menu-items{
+    margin: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+
+}
+.icon-card{
+    font-family: 'poppins';
+    display: flex;
+    gap:10px;
+    font-size: 18px;
+    padding:10px;
+    border-radius:5px;
+    font-weight: 500;
+    transition: all 0.6s ease;
+    color: rgba(0, 0, 0, 0.808);
+}
+
+.icon-card:hover{
+    background-color: #084707;
+    color: white;
+    cursor: pointer;
+    transition: all 0.6s ease;
+}
+
+.icon-a:hover{
+    color: white;
+}
+
+.name{
+    display: flex;
+    flex-direction: column;
+    font-size: larger;
+    font-weight: 400;
+}
+
+.edit-prof{
+    background-color: white;
+    padding:3px 5px;
+    display: flex;
+    gap:5px;
+    font-family: 'Inter';
+    font-size: 14px;
+    align-items: center;
+    border-radius:25px;
+    border: 2px solid #084707 ;
+    color: #084707;
+    transition: all 0.6s ease;
+}
+
+.edit-prof:hover{
+    cursor: pointer;
+    background-color: #084707;
+    color: white;
+    transform: scale(1.1);
+    transition: all 0.6s ease;
+}
+.searchbar{
+    grid-area:search;
+
+}
+
+.contents{
+    grid-area:content;
+    background-color: white;
+    margin: 15px;
+}
+
+.footer{
+    grid-area:footer;
+    background-color:#084707;
+}
