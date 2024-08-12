@@ -12,7 +12,7 @@
     height: 100vh;
     overflow-x: hidden;
     grid-template-columns: 220px 1fr;
-    grid-template-rows: 10vh 5vh auto 15vh;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas: 
       "header header"
       "side search"
