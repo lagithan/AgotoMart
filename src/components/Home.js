@@ -24,9 +24,7 @@ const Home = () => {
         { sidebar ? <Sidebar sidebar={sidebar} setsidebar={setsidebar}/> : ''}
         <div className='searchbar'></div>
         <div className='contents'></div>
-        <div className='footer'>
-            <Footer />
-        </div>
+        <Footer />
     </div>
   )
 }
