@@ -15,6 +15,7 @@
     background: #BFD5C4;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 600px;
   }
   
   .text-image-container {
@@ -34,6 +35,7 @@
   .image-container img {
     width: 100%;
     border-radius: 16px;
+    height: 550px;
   }
   
   .sub-box1, .sub-box2, .sub-box3 {
@@ -56,6 +58,14 @@
     font-family: Poppins;
     font-size: 18px;
     font-weight: 500;
+  }
+
+  .para2 {
+    width: 370px;
+  }
+
+  .para3 {
+    margin-left: 10px;
   }
   
   .mission-vision-container {

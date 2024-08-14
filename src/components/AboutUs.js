@@ -1,6 +1,6 @@
 import React from 'react';
-import './contactus.css';
-import plant from './images/plant.jpg';
+import './aboutus.css';
+import plant from '../Assets/images/plant.jpg';
 
 const AboutUs = () => {
   return (
