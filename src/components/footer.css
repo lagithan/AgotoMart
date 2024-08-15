@@ -1,13 +1,15 @@
-.footer{
+.footer-c{
     margin-top:50px;
-    padding: 0px 5px;
+    padding: 0px 25px;
     display: flex;
     flex-direction: row;
     color: white;
     font-family: 'Inter';
     font-size: 14px;
     justify-content: space-between;
-    width: 100%;
+    width:100vw;
+    height: fit-content;
+    background-color:#084707;
 
 }
 

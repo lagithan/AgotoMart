@@ -7,6 +7,7 @@ import XIcon from '@mui/icons-material/X';
 const Footer = () => {
   return (
     <div className='footer'>
+      <div className='footer-c'>
       <div className='box-1'>
         <div>
         <span className='f-h'>AgroMart</span>
@@ -41,6 +42,7 @@ const Footer = () => {
            <XIcon sx={{fontSize:'45px'}}/>
          </div>
         <span> </span>
+      </div>
       </div>
     </div>
   )

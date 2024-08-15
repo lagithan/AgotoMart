@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './login.css'; 
 import { useEffect, useState } from 'react';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams } from 'react-router-dom'
 import Signup from './Signup';
 

@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import './coverpage.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import plantimg from '../Assets/plant.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Coverpage = () => {
   const [sidebar,setsidebar]=useState(false)
+  const Navigate=useNavigate();
   const togglesidebar = () => {
     setsidebar(prevState => !prevState);
+   
 };
+const handelnavigate=()=>{
+  Navigate('/home');
+}
   return (
     <div className='cover'>
       <div className='body'>
@@ -66,7 +71,7 @@ const Coverpage = () => {
           <span>Grow your world with our plants </span>
           <p>Your go-to online store for premium plants, seeds, and fertilizers. Find everything you need to grow a flourishing garden, from vibrant flowers to nutritious veggies.</p>
         </div>
-        <button className='hero-btn'>Get your order</button>
+        <button  className='hero-btn' onClick={handelnavigate}>Get your order</button>
         </div>
         <div className='img-container'>
           <img className='img-c' src={plantimg} style={{backgroundSize:'contain',marginTop:'50px'}}/>
