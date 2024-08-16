@@ -46,7 +46,7 @@ const Home = () => {
                 <>
                     {sidebar && <Sidebar sidebar={sidebar} setSidebar={setSidebar} />}
                     <div className='contents'>
-                        <div className='content-c'>
+                        <div className='content-c'> {/*Put your content page within this container */}
                             {searchItems ? (
                                 <>
                                     <Search searchItems={searchItems} setItems={setItems} />
