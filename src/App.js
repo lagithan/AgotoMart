@@ -1,16 +1,16 @@
-import { Route, Routes} from 'react-router-dom';
-import './components/Coverpage'
+import { Route, Routes } from 'react-router-dom';
+import './components/Coverpage';
 import Coverpage from './components/Coverpage';
 import Loginform from './components/Login';
-import Home from './components/Home';
+import Index from './components/Index';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/*' element={<Coverpage/>}/>
-        <Route path='/home' element={<Home />}/>
-        <Route path='/:state' element={<Loginform />}/>
+        <Route path="/" element={<Coverpage />} />
+        <Route path="/index/*" element={<Index />} />
+        <Route path="/:state" element={<Loginform />} />
       </Routes>
     </div>
   );

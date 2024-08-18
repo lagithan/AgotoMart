@@ -1,6 +1,6 @@
 import React from 'react';
-import './contactus.css';
-import plant from './images/plant.jpg';
+import './aboutus.css';
+//import plant from './images/plant.jpg';
 
 const AboutUs = () => {
   return (
@@ -25,7 +25,6 @@ const AboutUs = () => {
             </div>
           </div>
           <div className='image-container'>
-            <img src={plant} alt="Plant" />
           </div>
         </div>
       </div>

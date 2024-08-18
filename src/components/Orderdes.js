@@ -31,7 +31,7 @@ const Orderdes = ({ item,setselectitem }) => {
         <div className='popup-content'>
             <CloseIcon fontSize='large' className='pop-close-btn' onClick={handleclose}/>
           <h2 className='popup-h'>{item.name}</h2>
-          <h3 style={{ fontSize: '24px', fontFamily: 'poppins' }}>Description</h3>
+          <h3 style={{ fontSize: '22px', fontFamily: 'poppins' }}>Description</h3>
           <p style={{ fontSize: '15px', height: '150px' }}>
             Tomato plants are a popular choice for home gardeners, known for their juicy and flavorful fruits. They are easy to grow and provide a bountiful harvest. Ideal for salads, sauces, and fresh snacking, tomato plants thrive in sunny locations with well-drained soil.
           </p>

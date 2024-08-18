@@ -13,7 +13,7 @@ const Coverpage = () => {
    
 };
 const handelnavigate=()=>{
-  Navigate('/home');
+  Navigate('/index');
 }
   return (
     <div className='cover'>
@@ -26,7 +26,7 @@ const handelnavigate=()=>{
           <span className='side-h'>AgroMart</span>
           <CloseIcon className='close-i'fontSize='medium' onClick={togglesidebar}/>
           </div>
-          <NavLink to="/home"className='link-b' >
+          <NavLink to="/index"className='link-b' >
           Home
         </NavLink>
         <NavLink to="/about"className='link-b' >
@@ -45,7 +45,7 @@ const handelnavigate=()=>{
           <h1>AgroMart</h1>
       <div className='header'>
         <div className='link-c'>
-        <NavLink to="/home" className='link'>
+        <NavLink to="/index" className='link'>
           Home
         </NavLink>
         <NavLink to="/about"className='link' >
