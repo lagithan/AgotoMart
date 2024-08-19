@@ -1,5 +1,6 @@
 import React from 'react';
 import './contactus.css';
+import Footer from './Footer';
 
 const ContactUs = () => {
   return (
@@ -28,6 +29,7 @@ const ContactUs = () => {
         ></iframe>
       </div>
     </div>
+    <Footer/>
     </div>
   );
 }

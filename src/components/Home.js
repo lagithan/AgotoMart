@@ -2,7 +2,7 @@ import React from 'react'
 import logo from '../Assets/logo.png'
 import './home.css'
 import Footer from './Footer'
-import { NavLink } from 'react-router-dom'
+import { Link,NavLink } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
 import CancelIcon from '@mui/icons-material/Cancel';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -90,26 +90,38 @@ const Sidebar = ({sidebar,setsidebar}) => {
                  <HomeIcon sx={{fontSize:'30px'}}/>
                  <span>Home</span>
              </div>
+             <Link to="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className='icon-card'>
                  <InfoIcon sx={{fontSize:'28px'}}/>
                  <span>About us</span>
              </div>
-             <div className='icon-card'>
+             </Link>
+             {/* <div className='icon-card'>
                  <ShoppingCartIcon sx={{fontSize:'30px'}}/>
                  <span>Cart</span>
-             </div>
+             </div> */}
+             <Link to="/ViewCart" style={{ textDecoration: 'none', color: 'inherit' }}>
+             <div className='icon-card'>
+             <ShoppingCartIcon sx={{ fontSize: '30px' }} />
+            <span>Cart</span>
+            </div>
+            </Link>
+            <Link to="/OrderHistory" style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className='icon-card'>
                  <ListAltIcon sx={{fontSize:'30px'}}/>
                  <span>My orders</span>
              </div>
+             </Link>
              <div className='icon-card'>
                  <AddCardIcon sx={{fontSize:'30px'}}/>
                  <span>Add card</span>
              </div>
+             <Link to="/contact" style={{ textDecoration: 'none', color: 'inherit' }}>
              <div className='icon-card'>
                  <ContactPageIcon sx={{fontSize:'30px'}}/>
                  <span>Contact us</span>
              </div>
+             </Link>
              <div className='icon-card'>
                  <LogoutIcon sx={{fontSize:'30px'}}/>
                  <span>Logout</span>

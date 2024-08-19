@@ -1,0 +1,158 @@
+.payment-billing-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+.payment-billing-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.content-container {
+  display: flex;
+  gap: 20px;
+  background-color: #D9E6DB;
+  width: 90%;
+  margin: auto;
+}
+
+.billing-details, .order-summary {
+  margin-left: 70px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 30px;
+  width: 35%;
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 10px;
+  height: 500px;
+}
+
+.order-summary {
+  flex: 1;
+  padding: 20px;
+  max-height: 500px; /* Adjust this value as needed */
+  overflow-y: auto;
+}
+
+.billing-details h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.billing-details form input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
+.text-arrange {
+  margin-left: 10px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-item img {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+  margin-top: -10px;
+}
+.order-summary .payment-options {
+  margin-top: 20px;
+}
+
+.order-summary .payment-options div {
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.order-summary .disclaimer {
+  font-size: 0.8em;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.pay-button {
+  width: 100%;
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.terms {
+  font-size: 0.8em;
+  margin-top: 10px;
+}
+
+
+
+.Totalvalue {
+  margin-left: 150px;
+}
+
+/* Container for the checkbox and label, aligned in a single line */
+.terms {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+/* Hide the default checkbox */
+.terms input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Custom checkbox container */
+.terms label {
+  position: relative;
+  padding-left: 25px; /* Space for custom checkbox */
+  cursor: pointer;
+  user-select: none;
+  color: #000;
+}
+
+/* Custom checkbox appearance */
+.terms label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #007BFF;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+/* Checkmark for checked state */
+.terms input[type="checkbox"]:checked + label::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid #007BFF;
+  border-width: 0 2px 2px 0;
+}
