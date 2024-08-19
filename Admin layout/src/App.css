@@ -1,0 +1,135 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F6F5F7;
+  color: #084707;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 65px 1fr auto;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
+  height: 100vh;
+}
+
+
+.header {
+  grid-area: header;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0 30px;
+  background-color: #D9E6DB;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+
+.login {
+  background-color: #084707;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login:hover {
+  background-color: #072f05;
+}
+
+
+#sidebar {
+  grid-area: sidebar;
+  background-color: white;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  padding: 20px 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height:100vh;
+}
+
+
+.sidebar-brand {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+}
+
+.sidebar-list-item {
+  margin-bottom: 10px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #084707;
+  display: flex;
+  gap:10px;
+  align-items: center;
+  padding: 15px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: medium;
+  font-family: 'poppins';
+  font-weight: 500;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: #084707;
+  color: white;
+}
+
+.main-content {
+  grid-area: main;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #F6F5F7;
+}
+
+
+.footer {
+  grid-area: footer;}
+ 
+
+.main-content {
+    padding: 15px;
+}
+
+.icon{
+  font-size: larger;
+  
+}
+
