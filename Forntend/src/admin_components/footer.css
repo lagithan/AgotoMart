@@ -1,0 +1,54 @@
+.footer {
+    grid-area: footer;}
+
+.footer-c{
+    margin-top: 5px;
+    padding:0px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-family: 'Inter';
+    font-size: 14px;
+    justify-content: space-between;
+    width:100%;
+    height: fit-content;
+    background-color:#084707;
+
+}
+
+.box-1{
+   display: flex;
+   flex-direction: column;
+   padding: 20px;
+   gap: 10px;
+}
+.f-h{
+    
+    font-weight: 600;
+    font-size: 28px;
+    color: white;
+}
+.f-h2{
+   font-size:12px;
+}
+
+.box-2{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap:10px
+}
+
+.box-3{
+    display:flex;
+    flex-direction: column;
+    padding:20px;
+    gap:10px;
+}
+
+.ficon-c{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}

@@ -1,0 +1,25 @@
+import { Route, Routes } from 'react-router-dom';
+import './components/Coverpage';
+import Coverpage from './components/Coverpage';
+import Loginform from './components/Login';
+import Index from './components/Index';
+import Admin from './admin_components/admin';
+import { UserProvider } from './components/Userdata';
+
+function App() {
+  return (
+    <UserProvider> 
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Coverpage />} />
+        <Route path='/admin/*' element={<Admin />} />
+        <Route path="/index/*" element={<Index />} />
+        <Route path="/:state" element={<Loginform />} />
+      </Routes>
+    </div>
+    </UserProvider>
+    
+  );
+}
+
+export default App;
