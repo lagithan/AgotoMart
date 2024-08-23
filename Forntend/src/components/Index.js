@@ -4,6 +4,9 @@ import Home from './Home';
 import Order from './Order';
 import User from './User';
 import Addcard from './Addcard';
+import AddPaymentMethod from './AddPaymentMethod'; 
+import Saved from './Saved';
+import Update from './Update'
 import ContactUs from './ContactUs';
 import AboutUs from './AboutUs';
 import Cart from './Cart';
@@ -39,8 +42,11 @@ const Index = () => {
                             <Route path="contactus" element={<ContactUs />} />
                             <Route path="orders" element={<Order />} />
                             <Route path="addcard" element={<Addcard />} />
+                            <Route path="add-payment-method" element={<AddPaymentMethod />} />
+                            <Route path="saved" element={<Saved />} />
                             <Route path="user" element={<User />} />
                             <Route path="cart" element={<Cart />} />
+                            <Route path="update" element={<Update />} />
                         </Routes>
                     </div>
                 </div>
