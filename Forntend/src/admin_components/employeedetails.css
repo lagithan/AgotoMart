@@ -11,9 +11,9 @@
   margin-bottom: 20px;
 }
 
-.add-button {
+.add-button1 {
   height: 40px;
-  width: 120px;
+  width: 200px;
   background-color: #084707;
   color: white;
   border: none;
@@ -23,7 +23,7 @@
   font-weight: 600;
 }
 
-.add-button:hover {
+.add-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.1);
 }
@@ -59,8 +59,8 @@
   gap: 10px;
 }
 
-.update-button,
-.delete-button {
+.update-button1,
+.delete-button1 {
   height: 35px;
   border: none;
   border-radius: 5px;
@@ -72,24 +72,24 @@
   padding: 10px 20px;
 }
 
-.update-button {
+.update-button1 {
   background-color: #084707;
   color: white;
   transition: all 0.5s ease;
 }
 
-.update-button:hover {
+.update-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.1);
 }
 
-.delete-button {
+.delete-button1 {
   background-color: #e43131;
   color: white;
   transition: all 0.5s ease;
 }
 
-.delete-button:hover {
+.delete-button1:hover {
   background-color: #ff4d4d;
   transform: scale(1.1);
 }

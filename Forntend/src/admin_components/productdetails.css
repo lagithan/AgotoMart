@@ -11,9 +11,10 @@
     margin-bottom: 20px;
   }
   
-  .add-button {
+  .add-button1 {
+    padding: 5px;
     height: 40px;
-    width: 120px;
+    width: fit-content;
     background-color: #084707;
     color: white;
     border: none;
@@ -23,12 +24,12 @@
     font-weight: 600;
   }
   
-  .add-button:hover {
+  .add-button1:hover {
     background-color: #0a5b08;
     transform: scale(1.1);
   }
   
-  .search-container {
+  .search-container1 {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -44,9 +45,10 @@
     font-size: 14px;
   }
   
-  .search-button {
+  .search-button1 {
+    padding:5px;
     height: 35px;
-    width: 100px;
+    width: 120px;
     background-color: #084707;
     color: white;
     border: none;
@@ -56,7 +58,7 @@
     transition: all 0.3s ease;
   }
   
-  .search-button:hover {
+  .search-button1:hover {
     background-color: #0a5b08;
     transform: scale(1.1);
   }
@@ -93,40 +95,6 @@
     gap: 10px;
   }
   
-  .update-button,
-  .delete-button {
-    height: 35px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    padding: 10px 20px;
-  }
-  
-  .update-button {
-    background-color: #084707;
-    color: white;
-    transition: all 0.5s ease;
-  }
-  
-  .update-button:hover {
-    background-color: #0a5b08;
-    transform: scale(1.1);
-  }
-  
-  .delete-button {
-    background-color: #e43131;
-    color: white;
-    transition: all 0.5s ease;
-  }
-  
-  .delete-button:hover {
-    background-color: #ff4d4d;
-    transform: scale(1.1);
-  }
   
   /* Popup styling */
   .popup-overlay {
@@ -186,14 +154,14 @@
     outline: none;
   }
   
-  .button-container {
+  .button-container1 {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
   }
   
-  .button-container .add-button,
+  .button-container1 .add-button1,
   .button-container .update-button {
     width: 120px;
     height: 40px;
@@ -206,13 +174,13 @@
     font-weight: 600;
   }
   
-  .button-container .add-button:hover,
-  .button-container .update-button:hover {
+  .button-container1 .add-button:hover,
+  .button-container1 .update-button:hover {
     background-color: #0a5b08;
     transform: scale(1.1);
   }
   
-  .close-button {
+  .close-button1 {
     position: absolute;
     top: 10px;
     right: 10px;
