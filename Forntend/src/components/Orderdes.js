@@ -8,13 +8,16 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 
 const Orderdes = ({ item,setselectitem }) => {
   const [quantity, setQuantity] = useState(1);
   const generateStockRange = (maxStock) => {
     return Array.from({ length: maxStock }, (_, i) => i + 1);
   };
+  const navigate = useNavigate();
   const stockRange = generateStockRange(item.quantity);
+  
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -64,7 +67,7 @@ const Orderdes = ({ item,setselectitem }) => {
           </h2>
           <div className='popup-btn'>
             <button className='addcart-btn'><ShoppingCartOutlinedIcon fontSize="medium"/> Add to cart</button>
-            <button className='buy-btn'><LocalMallOutlinedIcon fontSize="medium"/> Buy now</button>
+            <button className='buy-btn' onClick={() => navigate("/index/orderform")}><LocalMallOutlinedIcon fontSize="medium" /> Buy now</button>
           </div>
         </div>
       </div>
