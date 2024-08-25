@@ -87,7 +87,7 @@ const EmployeeDetails = () => {
     <div className="employee-details-container">
       <div className='employee-header'>
         <h2>Employee Details</h2>
-        <button onClick={() => setButtonPopup(true)} className='add-button'>Add Employee</button>
+        <button onClick={() => setButtonPopup(true)} className='add-button1'>Add Employee</button>
       </div>
       
       <div className='table-container'>
@@ -114,10 +114,10 @@ const EmployeeDetails = () => {
                 <td>{employee.serviceAreas}</td>
                 <td>{employee.role}</td>
                 <td className="action-buttons">
-                  <button className="update-button" onClick={() => handleEditClick(index)}>
+                  <button className="update-button1" onClick={() => handleEditClick(index)}>
                     <MdEdit className='icon' /> Update
                   </button>
-                  <button className="delete-button" onClick={() => handleDeleteClick(index)}>
+                  <button className="delete-button1" onClick={() => handleDeleteClick(index)}>
                     <RiDeleteBin6Fill className='icon' /> Delete
                   </button>
                 </td>
@@ -129,7 +129,7 @@ const EmployeeDetails = () => {
 
       <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <div className='popup-content'>
-        <button className="close-button" onClick={() => setButtonPopup(false)}>
+        <button className="close-button1" onClick={() => setButtonPopup(false)}>
           &times;
         </button>
           <div className="popup-heading">

@@ -121,7 +121,7 @@ const Login = ({setform,form}) => {
       <div className='left-t'>
         <span style={{fontSize:'32px',fontWeight:'bold',color:'white',textAlign:'center'}}>Welcome back to AgroMart</span>
         <span className='head1'>Login</span>
-        <div className='form-container'>
+        <div className='form-container1'>
         <div className='form-i'>
           <input type='email' name='email' required value={values.email} onChange={handleChange} placeholder='Enter your email'/>
           {errors.email && <div className={`error ${animate ? 'fade-in' : ''}`}>{errors.email}</div>}

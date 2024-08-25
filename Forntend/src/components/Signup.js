@@ -138,7 +138,7 @@ const Signup = ({ setform, form }) => {
       <div className='login-container'>
         <div className='left-t'>
           <span className='head1'>Sign up</span>
-          <div className='form-container'>
+          <div className='form-container1'>
             <div className='form-i'>
               <input
                 type='text'

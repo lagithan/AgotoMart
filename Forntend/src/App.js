@@ -6,6 +6,8 @@ import Index from './components/Index';
 import Admin from './admin_components/admin';
 import { UserProvider } from './components/Userdata';
 import OrderForm from './components/OrderForm';
+import ContactUs from './components/ContactUs';
+import AboutUs from './components/AboutUs';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Coverpage />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path='/admin/*' element={<Admin />} />
         <Route path="/index/orderform" element={<OrderForm/>} />
         <Route path="/index/*" element={<Index />} />

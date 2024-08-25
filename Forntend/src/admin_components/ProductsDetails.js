@@ -112,10 +112,10 @@ const ProductDetails = () => {
     <div className="product-details-container">
       <div className='product-header'>
         <h2>Product Details</h2>
-        <button onClick={() => setButtonPopup(true)} className='add-button'>Add Product</button>
+        <button onClick={() => setButtonPopup(true)} className='add-button1'>Add Product</button>
       </div>
 
-      <div className='search-container'>
+      <div className='search-container1'>
         <input
           type="text"
           value={searchTerm}
@@ -123,7 +123,7 @@ const ProductDetails = () => {
           placeholder="Search by product name"
           className='search-input'
         />
-        <button className='search-button'>Search</button>
+        <button className='search-button1'>Search</button>
       </div>
 
       <div className='table-container'>
@@ -149,10 +149,10 @@ const ProductDetails = () => {
                 <td>{product.quantity}</td>
                 <td>{product.description}</td>
                 <td className="action-buttons">
-                  <button className="update-button" onClick={() => handleEditClick(index)}>
+                  <button className="update-button1" onClick={() => handleEditClick(index)}>
                     <MdEdit className='icon' /> Update
                   </button>
-                  <button className="delete-button" onClick={() => handleDeleteClick(index)}>
+                  <button className="delete-button1" onClick={() => handleDeleteClick(index)}>
                     <RiDeleteBin6Fill className='icon' /> Delete
                   </button>
                 </td>
