@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import userRouter from './Routes/userRoutes.js';
-import productRouter from './Routes/productRoutes.js';
+import userRouter from './Routes/Routes.js';
+import productRouter from './Routes/productroute.js';
 import orderRouter from './Routes/orderroutes.js'; // Import the new order routes
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -28,7 +28,7 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-    origin: '*', // Adjust this for better security in production
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
