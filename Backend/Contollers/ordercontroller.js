@@ -4,6 +4,8 @@ const placeOrder = async (req, res) => {
   try {
     const { firstName, lastName, phoneNumber, district, address, paymentMethod, items } = req.body;
 
+    console.log(items)
+
     const totalAmount = items.reduce((acc, item) => acc + item.totalPrice, 0);
 
     const newOrder = new Order({
@@ -13,7 +15,12 @@ const placeOrder = async (req, res) => {
       district,
       address,
       paymentMethod,
-      items,
+      items:[{
+        name:items[0].name,
+        unitPrice:items[0].unitPrice,
+        quantity:items[0].quantity,
+        totalPrice:items[0].totalPrice
+      }],
       totalAmount
     });
 

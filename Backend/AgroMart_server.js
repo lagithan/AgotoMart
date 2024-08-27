@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Routes
 app.use('/user', userRouter);
 app.use('/product', productRouter);
-app.use('/order', orderRouter); // Add the new order routes
+app.use('/orders', orderRouter); // Add the new order routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {
