@@ -463,27 +463,24 @@ const OrderForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!formData.termsAccepted) {
       alert('Please accept the terms and conditions to proceed.');
       return;
     }
-
-    console.log('Submitting order with the following data:', formData);
-
+  
     try {
-      const response = await fetch('https://your-api-endpoint.com/orders', {
+      const response = await fetch('http://localhost:5000/orders/place', { // Replace with your actual API URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
         alert('Order placed successfully!');
         setFormData({
-          ...formData,
           firstName: '',
           lastName: '',
           phoneNumber: '',
@@ -491,24 +488,17 @@ const OrderForm = () => {
           address: '',
           paymentMethod: '',
           termsAccepted: false,
-          items: [
-            {
-              name: '',
-              unitPrice: 0,
-              quantity: 0,
-              totalPrice: 0,
-            },
-          ],
+          items: []
         });
       } else {
-        const errorResponse = await response.json();
-        alert(`Failed to place order: ${errorResponse.message || 'Unknown error'}`);
+        alert('Failed to place order.');
       }
     } catch (error) {
       console.error('Error placing order:', error);
       alert('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div className="payment-billing-container">

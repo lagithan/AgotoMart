@@ -1,10 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import router from './Routes/Routes.js'; // User routes
-import product from './Routes/Productroute.js'; // Product routes
-import orderRouter from './Routes/orderroutes.js'; // Order routes
-import cartRouter from './Routes/cartroutes.js'; // Cart routes
+import userRouter from './Routes/userRoutes.js';
+import productRouter from './Routes/productRoutes.js';
+import orderRouter from './Routes/orderroutes.js'; // Import the new order routes
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -29,7 +28,6 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000',
     origin: '*', // Adjust this for better security in production
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -39,10 +37,9 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
-app.use('/user', router);
-app.use('/product', product);
-app.use('/order', orderRouter);
-app.use('/cart', cartRouter); // Add cart routes here
+app.use('/user', userRouter);
+app.use('/product', productRouter);
+app.use('/order', orderRouter); // Add the new order routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {
