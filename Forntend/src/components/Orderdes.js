@@ -20,8 +20,7 @@ const Orderdes = ({ item, setselectitem, userId }) => {
 
   const handleAddToCart = async () => {
     try {
-      await axios.post('/cart/add-to-cart', { // Updated URL
-        userId,
+      await axios.post('/cart', {  // URL should match the route defined in your cart routes
         productId: item._id,
         quantity
       });
@@ -31,6 +30,7 @@ const Orderdes = ({ item, setselectitem, userId }) => {
       console.error(error);
     }
   };
+  
   
 
   const handleBuyNow = () => {

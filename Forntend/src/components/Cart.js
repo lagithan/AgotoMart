@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './viewcart.css';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import axios from 'axios';
 
 const ViewCart = () => {
-  const [products, setProducts] = useState([]); // Initialize as empty array
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const userId = 'user-id-from-context-or-auth'; // Replace with actual user ID
-        const response = await fetch(`/cart/${userId}`); // Fetch items from your backend API
-        
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        console.log('Fetched cart data:', data); // Debugging: log fetched data
-        
-        if (data.items) {
-          setProducts(data.items); // Update state with fetched items
-        } else {
-          setProducts([]); // Set to empty array if no items are found
-        }
+        const response = await axios.get('/cart'); // Fetch cart items from backend
+        setProducts(response.data.items);
       } catch (error) {
-        console.error('Error fetching cart items:', error);
-        setProducts([]); // Ensure products is still an array
+        console.error('Failed to fetch cart items:', error);
       }
     };
 
@@ -38,7 +23,7 @@ const ViewCart = () => {
 
   const calculateTotal = () =>
     products.reduce(
-      (total, product) => total + calculateSubtotal(product.productId.price, product.quantity),
+      (total, product) => total + calculateSubtotal(product.price, product.quantity),
       0
     );
 
@@ -48,13 +33,15 @@ const ViewCart = () => {
     setProducts(newProducts);
   };
 
-  const handleDelete = (index) => {
-    const newProducts = products.filter((_, i) => i !== index);
-    setProducts(newProducts);
-  };
-
-  const handleCheckout = () => {
-    navigate('/index/orderform', { state: { cartItems: products } }); // Navigate to orderform with cart items
+  const handleDelete = async (index) => {
+    const productId = products[index].productId;
+    try {
+      await axios.delete(`/cart/${productId}`); // Remove item from cart
+      const newProducts = products.filter((_, i) => i !== index);
+      setProducts(newProducts);
+    } catch (error) {
+      console.error('Failed to delete item from cart:', error);
+    }
   };
 
   return (
@@ -70,49 +57,43 @@ const ViewCart = () => {
           </tr>
         </thead>
         <tbody>
-          {products.length > 0 ? (
-            products.map((product, index) => (
-              <tr key={index} className="cart-item">
-                <td>
-                  <img src={product.productId.image} alt={product.productId.name} className="product-image" />
-                  <span>{product.productId.name}</span>
-                </td>
-                <td>Rs.{product.productId.price.toFixed(2)}</td>
-                <td>
-                  <button
-                    className="quantity-button"
-                    onClick={() => handleQuantityChange(index, 1)}
-                  >
-                    +
-                  </button>
-                  <span className="quantity-text">{product.quantity}</span>
-                  <button
-                    className="quantity-button"
-                    onClick={() => handleQuantityChange(index, -1)}
-                  >
-                    -
-                  </button>
-                </td>
-                <td>Rs.{calculateSubtotal(product.productId.price, product.quantity).toFixed(2)}</td>
-                <td>
-                  <button className="delete-button" onClick={() => handleDelete(index)}>
-                    <DeleteOutlineOutlinedIcon/>
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">No items in cart</td>
+          {products.map((product, index) => (
+            <tr key={index} className="cart-item">
+              <td>
+                <img src={product.image} alt={product.name} className="product-image" />
+                <span>{product.name}</span>
+              </td>
+              <td>Rs.{product.price.toFixed(2)}</td>
+              <td>
+                <button
+                  className="quantity-button"
+                  onClick={() => handleQuantityChange(index, 1)}
+                >
+                  +
+                </button>
+                <span className="quantity-text">{product.quantity}</span>
+                <button
+                  className="quantity-button"
+                  onClick={() => handleQuantityChange(index, -1)}
+                >
+                  -
+                </button>
+              </td>
+              <td>Rs.{calculateSubtotal(product.price, product.quantity).toFixed(2)}</td>
+              <td>
+                <button className="delete-button" onClick={() => handleDelete(index)}>
+                  <DeleteOutlineOutlinedIcon/>
+                </button>
+              </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
       <div className="cart-total">
         <span>Cart Total</span>
         <span>Rs.{calculateTotal().toFixed(2)}</span>
       </div>
-      <button className="checkout-button" onClick={handleCheckout}>Check out</button>
+      <button className="checkout-button">Check out</button>
     </div>
   );
 };
