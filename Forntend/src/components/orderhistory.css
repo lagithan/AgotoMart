@@ -122,11 +122,7 @@
     text-align: center;
     margin-top: 15px;
   }
-}
-=======
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+
   
   .orders-container h1 {
     text-align: center;
@@ -202,3 +198,4 @@
     background-color: darkgreen;
   }
   
+}

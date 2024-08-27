@@ -27,7 +27,7 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-    origin: '*', // Adjust this for better security in production
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -39,13 +39,12 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/user', router);
 app.use('/product', product);
 
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
