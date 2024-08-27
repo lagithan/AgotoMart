@@ -1,23 +1,22 @@
 import mongoose from 'mongoose';
 
-const itemSchema = new mongoose.Schema({
-  name: String,
-  unitPrice: Number,
-  quantity: Number,
-  totalPrice: Number,
+const OrderSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+  district: { type: String, required: true },
+  address: { type: String, required: true },
+  paymentMethod: { type: String, required: true },
+  items: [{
+    name: { type: String, required: true },
+    unitPrice: { type: Number, required: true },
+    quantity: { type: Number, required: true },
+    totalPrice: { type: Number, required: true },
+  }],
+  totalAmount: { type: Number, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
-const orderSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  phoneNumber: String,
-  district: String,
-  address: String,
-  paymentMethod: String,
-  items: { type: Map, of: itemSchema },  // Updated to store items as key-value pairs
-  totalAmount: Number,
-});
-
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Order', OrderSchema);
 
 export default Order;

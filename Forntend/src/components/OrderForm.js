@@ -464,19 +464,16 @@ const OrderForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!formData.termsAccepted) {
       alert('Please accept the terms and conditions to proceed.');
       return;
     }
-  
+
+    console.log(formData)
+
     try {
-      const response = await axios.post('http://localhost:5000/orders/place', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
+      const response = await axios.post('http://localhost:5000/orders/place', formData);
       if (response.status === 201) {
         alert('Order placed successfully!');
         setFormData({
@@ -492,121 +489,124 @@ const OrderForm = () => {
       } else {
         alert('Failed to place order.');
       }
-    } catch (error) {
-      console.error('Error placing order:', error);
-      alert('An error occurred. Please try again.');
-    }
-  };
-  
+    } 
+   
+  catch (error) {
+    console.error('Error placing order:', error);
+    alert('An error occurred. Please try again.');
+  }
+};
 
-  return (
-    <div className="payment-billing-container">
-      <h2>Payment & Billing</h2>
-      <div className="content-container">
-        <div className="billing-details">
-          <h3>Billing Details</h3>
-          <form onSubmit={handleSubmit}>
-            <p>First Name</p>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Enter your first name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            <p>Last Name</p>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Enter your last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-            <p>Phone Number</p>
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="Enter your phone number"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-            />
-            <p>Your District</p>
-            <input
-              type="text"
-              name="district"
-              placeholder="Enter your district"
-              value={formData.district}
-              onChange={handleChange}
-              required
-            />
-            <p>Your Address</p>
-            <input
-              type="text"
-              name="address"
-              placeholder="Enter your address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
-          </form>
-        </div>
-        <div className="order-summary">
-          <div className="order-items-container">
-            {formData.items.map((item, index) => (
-              <div key={index} className="order-item">
-                <img src={selectedItem?.image?.url || 'default-image-url'} alt="Product" />
-                <div className="text-arrange">
-                  <p><strong>Name:</strong> {item.name}</p>
-                  <p><strong>Unit Price:</strong> Rs. {item.unitPrice}.00</p>
-                  <p><strong>Quantity:</strong> {item.quantity}</p>
-                  <p><strong>Total Price:</strong> Rs. {item.totalPrice}.00</p>
-                </div>
+
+return (
+  <div className="payment-billing-container">
+    <h2>Payment & Billing</h2>
+    <div className="content-container">
+      <div className="billing-details">
+        <h3>Billing Details</h3>
+        <form onSubmit={handleSubmit}>
+          <p>First Name</p>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="Enter your first name"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+          <p>Last Name</p>
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Enter your last name"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+          <p>Phone Number</p>
+          <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="Enter your phone number"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
+          <p>Your District</p>
+          <input
+            type="text"
+            name="district"
+            placeholder="Enter your district"
+            value={formData.district}
+            onChange={handleChange}
+            required
+          />
+          <p>Your Address</p>
+          <input
+            type="text"
+            name="address"
+            placeholder="Enter your address"
+            value={formData.address}
+            onChange={handleChange}
+            required
+          />
+        </form>
+      </div>
+      <div className="order-summary">
+        <div className="order-items-container">
+          {formData.items.map((item, index) => (
+            <div key={index} className="order-item">
+              <img src={selectedItem?.image?.url || 'default-image-url'} alt="Product" />
+              <div className="text-arrange">
+                <p><strong>Name:</strong> {item.name}</p>
+                <p><strong>Unit Price:</strong> Rs. {item.unitPrice}.00</p>
+                <p><strong>Quantity:</strong> {item.quantity}</p>
+                <p><strong>Total Price:</strong> Rs. {item.totalPrice}.00</p>
               </div>
-            ))}
-          </div>
-          <p className="Totalvalue"><strong>Total:</strong> Rs. {formData.items.reduce((acc, item) => acc + item.totalPrice, 0)}.00</p>
-          <div className="payment-options">
-            <div>
-              <input
-                type="radio"
-                id="payhere"
-                name="paymentMethod"
-                value="payhere"
-                checked={formData.paymentMethod === 'payhere'}
-                onChange={handleChange}
-              />
-              <label htmlFor="payhere">Pay here</label>
             </div>
-            <div>
-              <input
-                type="radio"
-                id="cashOnDelivery"
-                name="paymentMethod"
-                value="cashOnDelivery"
-                checked={formData.paymentMethod === 'cashOnDelivery'}
-                onChange={handleChange}
-              />
-              <label htmlFor="cashOnDelivery">Cash on Delivery</label>
-            </div>
-          </div>
-          <div className="terms-checkbox">
+          ))}
+        </div>
+        <p className="Totalvalue"><strong>Total:</strong> Rs. {formData.items.reduce((acc, item) => acc + item.totalPrice, 0)}.00</p>
+        <div className="payment-options">
+          <div>
             <input
-              type="checkbox"
-              name="termsAccepted"
-              checked={formData.termsAccepted}
+              type="radio"
+              id="payhere"
+              name="paymentMethod"
+              value="payhere"
+              checked={formData.paymentMethod === 'payhere'}
               onChange={handleChange}
             />
-            <label>Accept terms and conditions</label>
+            <label htmlFor="payhere">Pay here</label>
           </div>
-          <button className="paynow-btn" onClick={handleSubmit}>Pay Now</button>
-
+          <div>
+            <input
+              type="radio"
+              id="cashOnDelivery"
+              name="paymentMethod"
+              value="cashOnDelivery"
+              checked={formData.paymentMethod === 'cashOnDelivery'}
+              onChange={handleChange}
+            />
+            <label htmlFor="cashOnDelivery">Cash on Delivery</label>
+          </div>
         </div>
+        <div className="terms-checkbox">
+          <input
+            type="checkbox"
+            name="termsAccepted"
+            checked={formData.termsAccepted}
+            onChange={handleChange}
+          />
+          <label>Accept terms and conditions</label>
+        </div>
+        <button className="paynow-btn" onClick={handleSubmit}>Pay Now</button>
+
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default OrderForm;
+
