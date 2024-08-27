@@ -413,6 +413,7 @@ export default OrderForm; */
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import './orderform.css';
 
 const OrderForm = () => {
@@ -470,15 +471,13 @@ const OrderForm = () => {
     }
   
     try {
-      const response = await fetch('http://localhost:5000/orders/place', { // Replace with your actual API URL
-        method: 'POST',
+      const response = await axios.post('http://localhost:5000/orders/place', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
       });
   
-      if (response.ok) {
+      if (response.status === 201) {
         alert('Order placed successfully!');
         setFormData({
           firstName: '',
@@ -611,5 +610,3 @@ const OrderForm = () => {
 };
 
 export default OrderForm;
-
-
