@@ -55,18 +55,23 @@ const ProductDetails = () => {
 
   const handleAddOrUpdateProduct = async (e) => {
     e.preventDefault();
+    setButtonPopup(false);
     try {
       if (editProductIndex !== null) {
         // Update existing product
         const productId = products[editProductIndex]._id;
         await axios.put(`http://localhost:5000/product/update/${productId}`, formData);
+        alert("Product updated succesfully");
       }
       else {
         await axios.post('http://localhost:5000/product/add', formData);
+        alert("Product added succesfully");
+        
       }
 
       fetchProducts();
       setEditProductIndex(null);
+
     }
     catch (err) {
       console.error('Error adding/updating product:', err);
@@ -80,7 +85,7 @@ const ProductDetails = () => {
       description: '',
       image: null
     });
-    setButtonPopup(false);
+    
     setEditProductIndex(null);
   };
 
@@ -98,6 +103,7 @@ const ProductDetails = () => {
     try {
       const productId = products[index]._id;
       await axios.delete(`http://localhost:5000/product/delete/${productId}`);
+      alert("Product deleted succesfully");
       fetchProducts();
     } catch (err) {
       console.error('Error deleting product:', err);
@@ -164,7 +170,7 @@ const ProductDetails = () => {
 
       <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
         <div className='popup-content'>
-          <button className="close-button" onClick={() => {
+          <button className="close-button2" onClick={() => {
             setButtonPopup(false); setEditProductIndex(null); setFormData({
               name: '',
               category: '',
@@ -222,7 +228,7 @@ const ProductDetails = () => {
               />
               {formData.image &&
                 <img
-                  src={formData.image.url}
+                  src={formData.image.url ? formData.image.url  : formData.image}
                   alt="Image Preview"
                   style={{ maxWidth: '200px', height: '100px' }}
                   className='image-preview'
@@ -230,7 +236,7 @@ const ProductDetails = () => {
               }
             </label>
             <div className="button-container">
-              <button type="submit" className="add-button">
+              <button type="submit" className="add-button1">
                 {editProductIndex !== null ? 'Update' : 'Add'}
               </button>
             </div>

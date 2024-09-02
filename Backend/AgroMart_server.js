@@ -5,6 +5,9 @@ import userRouter from './Routes/Routes.js';
 import productRouter from './Routes/productroute.js';
 import orderRouter from './Routes/orderroutes.js'; // Import the order routes
 import cartRouter from './Routes/cartroutes.js';  // Import the cart routes
+import router from './Routes/Routes.js';
+import product from './Routes/Productroute.js';
+import employee from './Routes/Employeeroute.js'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -42,6 +45,9 @@ app.use('/user', userRouter);
 app.use('/product', productRouter);
 app.use('/orders', orderRouter); // Add the order routes
 app.use('/cart', cartRouter);  // Add the cart routes
+app.use('/user', router);
+app.use('/product', product);
+app.use('/employee',employee)
 
 // Error handling middleware
 app.use((err, req, res, next) => {

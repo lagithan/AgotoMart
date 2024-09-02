@@ -54,6 +54,9 @@ const Orderdes = ({ item, setselectitem, userId }) => {
         <img className='desc-img' src={item.image?.url} alt="Product image" />
         <div className='popup-content'>
           <CloseIcon fontSize='large' className='pop-close-btn' onClick={() => setselectitem({})} />
+        <img className='desc-img' src={item.image.url} alt="Product image" />
+        <div className='popup-content1'>
+            <CloseIcon fontSize='large' className='pop-close-btn1' onClick={handleclose}/>
           <h2 className='popup-h'>{item.name}</h2>
           <h3 style={{ fontSize: '22px', fontFamily: 'poppins' }}>Description</h3>
           <p style={{ fontSize: '15px', height: '150px', overflow: 'hidden' }}>

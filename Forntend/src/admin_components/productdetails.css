@@ -12,7 +12,7 @@
   }
   
   .add-button1 {
-    padding: 5px;
+    padding: 5px 15px;
     height: 40px;
     width: fit-content;
     background-color: #084707;
@@ -180,16 +180,22 @@
     transform: scale(1.1);
   }
   
-  .close-button1 {
+  .close-button2 {
     position: absolute;
     top: 10px;
     right: 10px;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 26px;
     color: #555;
     cursor: pointer;
   }
+
+  .close-button2:hover{
+    color: red;
+    background-color: none;
+  }
+
  
 
 select {
