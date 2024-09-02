@@ -1,23 +1,15 @@
-.orders-container {
-
+.order-history-container {
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-.orders-container h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2em;
-  color: #333;
-}
-
-.tabs {
+.filter-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.tabs button {
+.filter-button {
   background-color: transparent;
   border: none;
   margin: 0 10px;
@@ -25,72 +17,72 @@
   cursor: pointer;
   font-size: 1em;
   font-weight: bold;
-  color: #333;
+  color: green;
   transition: color 0.3s ease;
 }
 
-.tabs button:hover {
-  color: #007BFF;
+.filter-button:hover {
+  color: #e6ecf3;
+  background-color: green;
 }
 
-.order-card {
+.order-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px;
+  padding: 15px;
   margin: 10px auto;
-  max-width: 600px;
+  width: 100%; /* Increase the width */
+  max-width: 700px; /* Adjust the max-width */
+  height: auto; /* Adjust the height to be auto */
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
 
-.order-card:hover {
+.order-box:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.order-details {
+.order-info {
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.order-details img {
-  width: 100px;
-  height: 100px;
+.order-image {
+  width: 100px; /* Reduce the image size */
+  height: 100px; /* Reduce the image size */
   margin-right: 20px;
   border-radius: 8px;
   object-fit: cover;
 }
 
-.order-details h2 {
+.order-details {
   margin: 0;
-  font-size: 1.5em;
   color: #333;
 }
 
-.order-details p {
+.order-text {
   margin: 5px 0;
   color: #555;
 }
 
-.order-summary {
+.order-summary-container {
   text-align: right;
   width: 100%;
 }
 
-.order-summary p {
-  margin: 5px 0;
-  color: #555;
-}
 
-.cancel-order-button {
-  background-color: #FF3B3B;
+
+.cancel-button {
+  margin-right: 35px;
+  background-color:  green;
   color: white;
-  padding: 10px 20px;
+  padding: 8px 12px; /* Reduce the padding */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -98,30 +90,31 @@
   transition: background-color 0.3s ease;
 }
 
-.cancel-order-button:hover {
-  background-color: #D32F2F;
+.cancel-button:hover {
+  background-color: #218822;
 }
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .order-card {
+  .order-box {
     flex-direction: column;
     align-items: center;
   }
 
-  .order-details {
+  .order-info {
     flex-direction: column;
     align-items: center;
   }
 
-  .order-details img {
+  .order-image {
     margin-bottom: 10px;
   }
 
-  .order-summary {
+  .order-summary-container {
     text-align: center;
     margin-top: 15px;
   }
+}
 
   
   .orders-container h1 {
@@ -199,3 +192,4 @@
   }
   
 }
+

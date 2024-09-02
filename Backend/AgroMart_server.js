@@ -1,6 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import userRouter from './Routes/Routes.js';
+import productRouter from './Routes/productroute.js';
+import orderRouter from './Routes/orderroutes.js'; // Import the order routes
+import cartRouter from './Routes/cartroutes.js';  // Import the cart routes
 import router from './Routes/Routes.js';
 import product from './Routes/Productroute.js';
 import employee from './Routes/Employeeroute.js'
@@ -28,7 +32,7 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-    origin: '*', // Adjust this for better security in production
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -37,6 +41,10 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
+app.use('/user', userRouter);
+app.use('/product', productRouter);
+app.use('/orders', orderRouter); // Add the order routes
+app.use('/cart', cartRouter);  // Add the cart routes
 app.use('/user', router);
 app.use('/product', product);
 app.use('/employee',employee)
@@ -47,7 +55,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

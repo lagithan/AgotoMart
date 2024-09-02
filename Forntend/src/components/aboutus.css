@@ -1,74 +1,76 @@
-.Heading {
-    color: #084707;
-    text-align: center;
-    font-family: Poppins;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  }
-  
-  .main-box1 {
-    width: 90%;
-    margin: 20px auto;
-    border-radius: 16px;
-    background: #BFD5C4;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .text-image-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .text-container {
-    width: 55%;
-  }
-  
-  .image-container {
-    width: 40%;
-  }
-  
-  .image-container img {
-    width: 100%;
-    border-radius: 16px;
-  }
-  
-  .sub-box1, .sub-box2, .sub-box3 {
+.heading {
+  color: #084707;
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
 
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .subheading1, .subheading2, .subheading3 {
-    color: #084707;
-    font-family: Poppins;
-    font-size: 30px;
-    font-weight: 500;
-    margin-top: 0;
-  }
-  
-  .para1, .para2, .para3 {
-    color: #000;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  
-  .mission-vision-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  
-  .sub-box2 {
-    width: 48%;
-  }
-  
-  .sub-box3 {
-    width: 48%;
-  }
-  
+.main-box {
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 10px;
+  background: #E6EDEB;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.text-container {
+  width: 60%;
+}
+
+.sub-box1, .sub-box2, .sub-box3 {
+  background-color: #BFD5C4;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.subheading1, .subheading2, .subheading3 {
+  color: #084707;
+  font-family: Poppins, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.para1, .para2, .para3 {
+  color: #093d07;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.mission-vision-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-box2, .sub-box3 {
+  width: 48%;
+}
+
+.image-container {
+  padding: 10px;
+  width: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  width: 100%;
+  max-height: 600px; /* Set the maximum height */
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+}
+

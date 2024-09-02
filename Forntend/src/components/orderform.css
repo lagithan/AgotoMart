@@ -1,177 +1,147 @@
-.payment-billing-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
+/* Main container for payment and billing */
+.payment-billing-wrapper {
+  padding: 30px;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
 }
 
-
-.payment-billing-container h2 {
+/* Heading for the payment and billing section */
+.payment-billing-heading {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 2em;
+  color: #333;
 }
 
-.content-container {
+/* Container for billing details and order summary */
+.content-wrapper {
   display: flex;
   gap: 20px;
-  background-color: #D9E6DB;
-  width: 90%;
+  max-width: 1200px;
   margin: auto;
-}
-
-.billing-details, .order-summary {
-  margin-left: 70px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-right: 30px;
-  width: 35%;
-  background-color: #f9f9f9;
-  padding: 30px;
+  background-color: #fff;
   border-radius: 10px;
-  height: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
+/* Billing details section */
+.billing-section, .order-summary-section {
+  flex: 1;
+  margin: 10px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: auto;
+}
 
-.order-item {
+/* Heading for billing details */
+.billing-section h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Input fields in the billing form */
+.billing-section form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+/* Style for the order items */
+.order-item-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.order-item img {
+.order-item-wrapper img {
   width: 100px;
   height: 100px;
   margin-right: 20px;
-  margin-top: -10px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-/* Rest of your styles remain the same */
-
-
-.billing-details h3 {
-  text-align: center;
-  margin-bottom: 15px;
+/* Details text for each order item */
+.order-details-text {
+  line-height: 1.5;
 }
 
-.billing-details form input {
-  width: 80%;
-  padding: 10px;
+/* Payment options section */
+.order-summary-section .payment-options-wrapper {
+  margin-top: 20px;
+}
+
+.order-summary-section .payment-options-wrapper div {
   margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
-
-
-.text-arrange {
-  margin-left: 10px;
-  line-height: 20px;
-  text-align: left;
+.order-summary-section .payment-options-wrapper input[type="radio"] {
+  margin-right: 10px;
 }
 
-
-.order-summary .payment-options {
+/* Disclaimer and terms text */
+.order-summary-section .disclaimer-text, .order-summary-section .terms-text {
+  font-size: 0.9em;
   margin-top: 20px;
-}
-
-.order-summary .payment-options div {
-  margin-bottom: 5px;
-  text-align: left;
-}
-
-.order-summary .disclaimer {
-  font-size: 0.8em;
-  margin-top: 20px;
-  text-align: left;
-}
-
-
-
-.terms {
-  font-size: 0.8em;
-  margin-top: 10px;
-}
-
-
-
-.Totalvalue {
-  margin-left: 150px;
+  color: #666;
 }
 
 /* Container for the checkbox and label, aligned in a single line */
-.terms {
+.terms-checkbox-wrapper {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+.terms-checkbox-wrapper input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.terms-checkbox-wrapper label {
   font-size: 0.9em;
+  color: #333;
 }
 
-/* Hide the default checkbox */
-.terms input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* Custom checkbox container */
-.terms label {
-  position: relative;
-  padding-left: 25px; /* Space for custom checkbox */
-  cursor: pointer;
-  user-select: none;
-  color: #000;
-}
-
-/* Custom checkbox appearance */
-.terms label::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  border: 2px solid #007BFF;
-  border-radius: 3px;
-  background-color: #fff;
-}
-
-/* Checkmark for checked state */
-.terms input[type="checkbox"]:checked + label::after {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
-  width: 5px;
-  height: 10px;
-  border: solid #007BFF;
-  border-width: 0 2px 2px 0;
-}
-
-.order-summary {
-  flex: 1;
-  padding: 20px;
-  max-height: 500px;
-  overflow-y: hidden; /* Overflow should be hidden or auto as needed */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Ensures the button stays in view */
-}
-
-.order-items-container {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 20px; /* Add spacing below the items */
-}
-
-.pay-button {
+/* Pay Now button styling */
+.pay-now-button {
   width: 100%;
-  padding: 10px;
-  background-color: green;
-  color: white;
+  padding: 15px;
+  background-color: #007BFF;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px; /* Space the button from other elements */
-  position: relative;
-  z-index: 1; /* Ensure it stays on top */
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
+
+.pay-now-button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .billing-section, .order-summary-section {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+

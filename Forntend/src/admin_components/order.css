@@ -1,11 +1,13 @@
-.order-history-container {
+
+
+ .container-order-history {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.status-tabs {
+.tab-status-filters {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;
@@ -14,7 +16,7 @@
   padding: 5px;
 }
 
-.tab {
+.filter-tab {
   flex: 1;
   padding: 10px;
   color: #fff;
@@ -24,17 +26,17 @@
   background-color: #084707;
 }
 
-.tab:last-child {
+.filter-tab:last-child {
   border-right: none;
 }
 
-.search-bar {
+.input-search-bar {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 15px;
 }
 
-.search-bar input {
+.input-search-bar input {
   padding: 8px 12px;
   border: 2px solid #084707;
   border-radius: 5px;
@@ -42,7 +44,7 @@
   outline: none;
 }
 
-.order-card {
+.card-order {
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
@@ -54,65 +56,66 @@
   font-family: Arial, sans-serif;
 }
 
-.order-details {
+.details-order {
   width: 70%;
 }
 
-.order-id {
+id-order {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 15px;
 }
 
-.item-details {
+details-item {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.item-details span {
+details-item span {
   flex: 1;
   text-align: left;
   font-size: 16px;
   color: #084707;
 }
 
-.total-amount {
+amount-total {
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 10px;
 }
 
-.status-section {
+.section-status {
   display: flex;
   align-items: center;
   margin-top: 10px;
 }
 
-.status-section label {
+.section-status label {
   margin-right: 10px;
   font-weight: bold;
   color: #084707;
 }
 
-.status-select {
+.select-status {
   min-width: 140px;
   font-size: 16px;
   height: 40px;
 }
 
-.order-actions {
+
+actions-order {
   text-align: right;
   margin-bottom: 140px;
 }
 
-.order-actions p {
+actions-order p {
   font-size: 12px;
   color: #084707;
   margin-bottom: 10px;
 }
 
-.update-button-last {
+button-updateadmin-order {
   background-color: #084707;
   color: #ffffff;
   padding: 10px 20px;
@@ -122,39 +125,38 @@
   transition: background-color 0.3s ease;
 }
 
-.update-button-last:hover {
+button-update-adminorder:hover {
   background-color: #084707;
 }
 
 @media (max-width: 768px) {
-  .order-history-container {
+  .container-order-history {
     padding: 10px;
   }
 
-  .order-card {
+  .card-order {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .order-details {
+  .details-order {
     width: 100%;
   }
 
-  .order-actions {
+  .actions-order {
     text-align: left;
     margin-top: 10px;
   }
 
-  .status-tabs {
+  .tab-status-filters {
     flex-direction: column;
-   
   }
 
-  .tab {
+  .filter-tab {
     margin-bottom: 5px;
   }
 
-  .search-bar input {
+  .input-search-bar input {
     width: 100%;
   }
 }

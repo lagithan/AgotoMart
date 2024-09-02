@@ -1,68 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './orderhistory.css';
+import { UserContext } from './Userdata';
+import axios from 'axios';
 
 const Orders = () => {
-  // Sample order data to test the UI
-  const [orders, setOrders] = useState([
-    {
-      id: 1,
-      image: 'https://via.placeholder.com/100', // Placeholder image URL
-      name: 'Gotukola',
-      quantity: 2,
-      status: 'To be received',
-      address: '123, Main Street, Colombo',
-      date: '2024-02-03T11:32:42',
-      subTotal: 200.00,
-      deliveryFee: 50.00,
-      total: 250.00
-    },
-    {
-      id: 2,
-      image: 'https://via.placeholder.com/100', // Placeholder image URL
-      name: 'Carrot',
-      quantity: 5,
-      status: 'Delivered',
-      address: '456, Market Road, Kandy',
-      date: '2024-02-01T09:15:22',
-      subTotal: 500.00,
-      deliveryFee: 50.00,
-      total: 550.00
+  const [orders, setOrders] = useState([]);
+  const { user_data } = useContext(UserContext);
+
+  // Fetch orders from the API
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/orders/getyours/${user_data.id}`);
+      setOrders(response.data);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
     }
-  ]);
+  };
 
-  const [filter, setFilter] = useState('all');
+  // Cancel an order
+  const cancelOrder = async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:5000/orders/delete/${orderId}`);
+      setOrders(orders.filter(order => order._id !== orderId));
+    } catch (error) {
+      console.error('Error cancelling order:', error);
+    }
+  };
 
-  const filteredOrders = orders.filter(order => {
-    if (filter === 'all') return true;
-    if (filter === 'toReceive') return order.status === 'To be received';
-    return true;
-  });
+  useEffect(() => {
+    if (user_data && user_data.id) {
+      fetchOrders();
+    }
+  }, [user_data]);
 
   return (
-    <div className="orders-container">
-      <h1>My Orders</h1>
-      <div className="tabs">
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('toReceive')}>To Receive</button>
-      </div>
-      {filteredOrders.map(order => (
-        <div className="order-card" key={order.id}>
-          <div className="order-details">
-            <img src={order.image} alt={order.name} />
+    <div className="order-history-container">
+      {orders.map(order => (
+        <div className="order-box" key={order._id}>
+          <div className="order-info">
+            <img src={order.items[0].image} alt={order.name} className="order-image"/>
             <div>
-              <h2>Order #{order.id}</h2>
-              <p><strong>{order.name}</strong></p>
-              <p>Qty: {order.quantity}</p>
-              <p>Status: {order.status}</p>
-              <p>Address: {order.address}</p>
+              <h2 className="order-details">Order #{order._id}</h2>
+              <p className="order-text">Qty: {order.items[0].quantity}</p>
+              <p className="order-text">Status: {order.status}</p>
+              <p className="order-text">Address: {order.address}</p>
+              <p className="order-text">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
+              <p className="order-text">Total: Rs. {order.items[0].totalPrice}</p>
             </div>
           </div>
-          <div className="order-summary">
-            <p>Placed on {new Date(order.date).toLocaleDateString()}</p>
-            <p>Subtotal: Rs. {order.subTotal.toFixed(2)}</p>
-            <p>Delivery fee: Rs. {order.deliveryFee.toFixed(2)}</p>
-            <p>Total: Rs. {order.total.toFixed(2)}</p>
-            <button className="cancel-order-button">Cancel order</button>
+          <div className="order-summary-container">
+            <button className="cancel-button" onClick={() => cancelOrder(order._id)}>Cancel Order</button>
           </div>
         </div>
       ))}

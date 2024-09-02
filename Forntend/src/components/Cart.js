@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './viewcart.css';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import axios from 'axios';
+
 const ViewCart = () => {
   const [products, setProducts] = useState([]);
 
-  // This function simulates fetching cart items from an API
   useEffect(() => {
     const fetchCartItems = async () => {
-      // Simulated API call
-      const response = [
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-      ];
-      setProducts(response);
+      try {
+        const response = await axios.get('http://localhost:5000/cart'); // Fetch cart items from backend
+        setProducts(response.data.items);
+      } catch (error) {
+        console.error('Failed to fetch cart items:', error);
+      }
     };
 
     fetchCartItems();
@@ -48,9 +33,15 @@ const ViewCart = () => {
     setProducts(newProducts);
   };
 
-  const handleDelete = (index) => {
-    const newProducts = products.filter((_, i) => i !== index);
-    setProducts(newProducts);
+  const handleDelete = async (index) => {
+    const productId = products[index].productId;
+    try {
+      await axios.delete(`http://localhost:5000/cart/${productId}`); // Remove item from cart
+      const newProducts = products.filter((_, i) => i !== index);
+      setProducts(newProducts);
+    } catch (error) {
+      console.error('Failed to delete item from cart:', error);
+    }
   };
 
   return (
