@@ -160,7 +160,7 @@ font-weight: bold;
 color: white;
 }
 
-.submit-btn{
+.submit-btn2{
     position: relative;
     padding:10px;
     border-radius: 5px;
@@ -174,11 +174,12 @@ color: white;
     color: white;
 }
 
-.submit-btn:hover{
+.submit-btn2:hover{
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.6s ease;
     transform: scale(1.05);
+    background-color:#084707;
 }
 
 .footer{

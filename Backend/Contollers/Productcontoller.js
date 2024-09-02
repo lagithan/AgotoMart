@@ -9,6 +9,7 @@ const Addproduct= async (req,res) =>{
             folder: 'AgroMart',
           });
 
+          console.log(upim);
         const newProduct = new Product({
             name,
             category,
@@ -69,13 +70,7 @@ const searchproduct = async (req, res) => {
   const name = req.params.pname;
 
   try {
-    const query = {
-      $or: [
-        { name: { $regex: name, $options: "i" } },
-        { category: { $regex: name, $options: "i" } }
-      ]
-    };
-    
+    const query = { name: { $regex: name , $options: "i" } };
       const searchp = await Product.find(query);
       
       if (searchp.length === 0) {

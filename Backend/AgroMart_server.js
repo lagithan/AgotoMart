@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import router from './Routes/Routes.js';
 import product from './Routes/Productroute.js';
+import employee from './Routes/Employeeroute.js'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -27,7 +28,7 @@ connectDatabase();
 
 // Middleware
 app.use(cors({
-    origin: '*',
+    origin: '*', // Adjust this for better security in production
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -38,13 +39,15 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Routes
 app.use('/user', router);
 app.use('/product', product);
+app.use('/employee',employee)
 
+// Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

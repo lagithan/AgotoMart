@@ -183,7 +183,7 @@ const Signup = ({ setform, form }) => {
               />
               {errors.confirmpaswd && <div className={`error ${animate ? 'fade-in' : ''}`}>{errors.confirmpaswd}</div>}
             </div>
-              <button type='submit' className='submit-btn'>Sign up</button>
+              <button type='submit' className='submit-btn2'>Sign up</button>
               {serror && <span style={{ color: 'red', fontSize: '15px',position:"absolute",bottom:'0px',left:'50px'}}>{serror}</span>}
               <span style={{ color: 'white' }} className='login-f'>
                   Already have an account?

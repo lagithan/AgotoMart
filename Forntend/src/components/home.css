@@ -506,3 +506,18 @@
     grid-area: footer;
     position: relative;
 }
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Inter";
+    gap:25px;
+    color: black;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+}
+

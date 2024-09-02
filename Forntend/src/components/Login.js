@@ -132,7 +132,7 @@ const Login = ({setform,form}) => {
         }
         </div>
         {serror && <div style={{ color: 'red', fontSize: '18px',position:"relative",left:'100px'}}>{serror}</div>}
-          <button  type='submit' className='submit-btn' >Login</button>
+          <button  type='submit' className='submit-btn2' >Login</button>
           <span style={{margin:'0px',color:'white'}} className='login-f' >Don't you have an account? 
             <NavLink style={{margin:'5px'}} onClick={hanlestate}>Sign up</NavLink>
           </span>
