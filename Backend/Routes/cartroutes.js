@@ -1,22 +1,10 @@
-/* import express from 'express';
-const router = express.Router();
-import * as cartController from '../Contollers/cartcontroller.js'; // Use ES module import
-
-// Route to add an item to the cart
-router.post('/add-to-cart', cartController.addToCart);
-
-// Route to get the cart for a specific user
-router.get('/:userId', cartController.getCart);
-
-export default router;
- */
+// routes/cartroutes.js
 import express from 'express';
-import { addItemToCart, getCart, removeItemFromCart } from '../Contollers/cartcontroller.js';
-import { protect } from '../Middleware/authMiddleware.js';
+import { getCart, addToCart } from '../contollers/cartcontroller.js';
 
 const router = express.Router();
 
-router.route('/').post(protect, addItemToCart).get(protect, getCart);
-router.route('/:productId').delete(protect, removeItemFromCart);
+router.get('/:userId', getCart);
+router.post('/add', addToCart);
 
 export default router;

@@ -9,7 +9,7 @@ const ViewCart = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get('/cart'); // Fetch cart items from backend
+        const response = await axios.get('http://localhost:5000/cart'); // Fetch cart items from backend
         setProducts(response.data.items);
       } catch (error) {
         console.error('Failed to fetch cart items:', error);
@@ -36,7 +36,7 @@ const ViewCart = () => {
   const handleDelete = async (index) => {
     const productId = products[index].productId;
     try {
-      await axios.delete(`/cart/${productId}`); // Remove item from cart
+      await axios.delete(`http://localhost:5000/cart/${productId}`); // Remove item from cart
       const newProducts = products.filter((_, i) => i !== index);
       setProducts(newProducts);
     } catch (error) {

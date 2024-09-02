@@ -1,5 +1,4 @@
-// Orderdes.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './popup.css';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
@@ -9,8 +8,10 @@ import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from './Userdata';
 
 const Orderdes = ({ item, setselectitem, userId }) => {
+  const { isregistered } = useContext(UserContext);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
 
@@ -20,34 +21,37 @@ const Orderdes = ({ item, setselectitem, userId }) => {
 
   const handleAddToCart = async () => {
     try {
-      await axios.post('/cart', {  // URL should match the route defined in your cart routes
-        productId: item._id,
-        quantity
+      await axios.post('http://localhost:5000/cart/add', {
+        userId,
+        item: { ...item, quantity: Number(quantity) },
       });
-      alert('Item added to cart successfully');
+      alert('Item added to cart');
     } catch (error) {
-      alert('Failed to add item to cart');
-      console.error(error);
+      console.error('Failed to add item to cart:', error);
     }
   };
-  
-  
 
   const handleBuyNow = () => {
-    navigate("/index/orderform", { 
-      state: { 
-        selectedItem: { 
-          ...item, 
-          quantity: Number(quantity)
-        } 
-      } 
-    });
+    if (isregistered) {
+      navigate("/index/orderform", {
+        state: {
+          selectedItem: {
+            ...item,
+            quantity: Number(quantity),
+          },
+        },
+      });
+    } else {
+      alert("Login your account first");
+    }
   };
+
+  if (!item) return null;
 
   return (
     <div className='back-drop'>
       <div className='order-popup'>
-        <img className='desc-img' src={item.image.url} alt="Product image" />
+        <img className='desc-img' src={item.image?.url} alt="Product image" />
         <div className='popup-content'>
           <CloseIcon fontSize='large' className='pop-close-btn' onClick={() => setselectitem({})} />
           <h2 className='popup-h'>{item.name}</h2>
@@ -83,8 +87,12 @@ const Orderdes = ({ item, setselectitem, userId }) => {
             Total Rs.{item.price * quantity}
           </h2>
           <div className='popup-btn'>
-            <button className='addcart-btn' onClick={handleAddToCart}><ShoppingCartOutlinedIcon fontSize="medium" /> Add to cart</button>
-            <button className='buy-btn' onClick={handleBuyNow}><LocalMallOutlinedIcon fontSize="medium" /> Buy now</button>
+            <button className='addcart-btn' onClick={handleAddToCart}>
+              <ShoppingCartOutlinedIcon fontSize="medium" /> Add to cart
+            </button>
+            <button className='buy-btn' onClick={handleBuyNow}>
+              <LocalMallOutlinedIcon fontSize="medium" /> Buy now
+            </button>
           </div>
         </div>
       </div>
