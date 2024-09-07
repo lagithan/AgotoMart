@@ -157,7 +157,7 @@ const OrderForm = () => {
                 checked={formData.paymentMethod === 'payhere'}
                 onChange={handleChange}
               />
-              <label htmlFor="payhere">Pay here</label>
+              <label htmlFor="payhere">Card Payment</label>
             </div>
             <div>
               <input
@@ -171,6 +171,7 @@ const OrderForm = () => {
               <label htmlFor="cashOnDelivery">Cash on Delivery</label>
             </div>
           </div>
+          
           <div className="terms-checkbox-wrapper">
             <input
               type="checkbox"
@@ -178,7 +179,8 @@ const OrderForm = () => {
               checked={formData.termsAccepted}
               onChange={handleChange}
             />
-            <label>Accept terms and conditions</label>
+            <label>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
+            Accept terms and conditions</label>
           </div>
           <button className="pay-now-button" onClick={handleSubmit}>Place Order</button>
         </div>

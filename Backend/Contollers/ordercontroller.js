@@ -5,7 +5,7 @@ const placeOrder = async (req, res) => {
     // Log the entire request body to see what is being sent
     console.log('Request Body:', req.body);
 
-    const { user_id, firstName, lastName, phoneNumber, district, address, paymentMethod, items} = req.body;
+    const { user_id, firstName, lastName, phoneNumber, district, address, paymentMethod, items } = req.body;
 
     // Log individual fields to check if they are being received correctly
     console.log('User ID:', user_id);
@@ -50,6 +50,7 @@ const placeOrder = async (req, res) => {
     res.status(500).json({ error: 'Failed to place order' });
   }
 };
+
 const getOrders = async (req, res) => {
   try {
     const orders = await Order.find();
@@ -67,7 +68,6 @@ const getOrderById = async (req, res) => {
 
     // Find the order by its ID
     const order = await Order.find({ user_id: req.params.id });
-
 
     // If the order is not found, return a 404 error
     if (!order) {
@@ -128,4 +128,4 @@ const updateOrderStatus = async (req, res) => {
 };
 
 
-export { placeOrder, getOrders, getOrderById, deleteOrder,updateOrderStatus };
+export { placeOrder, getOrders, getOrderById, deleteOrder, updateOrderStatus};
