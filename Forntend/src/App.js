@@ -9,6 +9,7 @@ import OrderForm from './components/OrderForm';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
 import CartOrder from './components/Cartorder';
+import Paymentform from './components/Paymentform';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/index/*" element={<Index />} />
         <Route path="/:state" element={<Loginform />} />
         <Route path="/cartorder" element={<CartOrder />} />
+        <Route path="/paymentform" element={<Paymentform />} />
       </Routes>
     </div>
     </UserProvider>

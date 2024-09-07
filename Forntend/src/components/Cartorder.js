@@ -66,12 +66,6 @@ const Cartorder= () => {
     const responses = await Promise.all(promises)
 
     console.log({responses});
-    
-  
-    
-
-     
-
     alert('Order placed successfully!');
   };
   

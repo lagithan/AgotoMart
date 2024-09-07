@@ -64,7 +64,9 @@ const OrderForm = () => {
       return;
     }
 
+    if(formData.paymentMethod === "cashOnDelivery"){
     try {
+      
       const response = await axios.post('http://localhost:5000/orders/place', formData);
       if (response.status === 201) {
         alert('Order placed successfully!');
@@ -75,7 +77,12 @@ const OrderForm = () => {
       console.error('Error placing order:', error);
       alert('An error occurred. Please try again.');
     }
-  };
+  }
+
+  else if (formData.paymentMethod === "payhere"){
+    navigate('/paymentform',{state:formData});
+  }
+}
 
   return (
     <div className="payment-billing-wrapper">
