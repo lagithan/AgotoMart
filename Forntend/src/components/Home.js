@@ -10,6 +10,7 @@ import seedc from '../Assets/seedc.jpeg';
 import fertilizerc from '../Assets/fertilizerc.jpg';
 import Orderdes from './Orderdes';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
     const [searchItems, setItems] = useState('');
@@ -190,7 +191,8 @@ const Searchcontent = ({ searchItems, handleSelect }) => {
 
             {loading ? (
                 <div className='loading'>
-                    <p>Loading...</p>
+                    <p style={{fontSize:'28px',fontWeight:"500"}}>Loading...</p>
+                    <CircularProgress disableShrink size={80} />
                 </div>
             ) : (
                 <div className='small-cards'>

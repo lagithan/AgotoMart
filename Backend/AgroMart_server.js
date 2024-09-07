@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import router from './Routes/Routes.js';
 import product from './Routes/Productroute.js';
+import employee from './Routes/Employeeroute.js';
+import user from './Routes/Userroute.js';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -38,6 +40,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Routes
 app.use('/user', router);
 app.use('/product', product);
+app.use('/employee',employee)
+app.use('/userprofile',user)
 
 // Error handling middleware
 app.use((err, req, res, next) => {

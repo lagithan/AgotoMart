@@ -1,0 +1,73 @@
+/* General styling */
+.useraccount-container {
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+.useraccount-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    height: 40px;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.user-table th,
+.user-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid rgba(222, 217, 217, 0.671);
+    font-size: 14px;
+}
+
+.user-table th {
+    background-color: #084707;
+    color: white;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete-button1 {
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background-color: #e43131;
+    color: white;
+    transition: all 0.5s ease;
+}
+
+.delete-button1:hover {
+    background-color: #ff4d4d;
+    transform: scale(1.1);
+}

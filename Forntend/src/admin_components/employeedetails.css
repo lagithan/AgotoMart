@@ -154,7 +154,7 @@ input:focus {
   outline: none;
 }
 
-.contact-info {
+.contact-info2 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -167,8 +167,8 @@ input:focus {
   margin-top: 20px;
 }
 
-.button-container .add-button,
-.button-container .update-button {
+.button-container .add-button1,
+.button-container .update-button1 {
   width: 120px;
   height: 40px;
   background-color: #084707;
@@ -180,8 +180,8 @@ input:focus {
   transition: all 0.3s ease;
 }
 
-.button-container .add-button:hover,
-.button-container .update-button:hover {
+.button-container .add-button1:hover,
+.button-container .update-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.05);
 }

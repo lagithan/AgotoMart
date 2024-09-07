@@ -450,7 +450,10 @@
     background-color: white;
     width: calc(100vw - 250px);
     min-height: 100vh;
- }
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;}
+    
 
  @keyframes slideup {
     from {
@@ -477,8 +480,14 @@
 
  }
 
- .card {
+ .card:hover{
+    transition: all 0.6s ease;
+    transform: scale(1.1);
+    cursor: pointer;
+ }
 
+ .card {
+    transition: all 0.6s ease;
     text-align: center;
     padding:10px;
     margin: 10px;
@@ -497,3 +506,18 @@
     grid-area: footer;
     position: relative;
 }
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Inter";
+    gap:25px;
+    color: black;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+}
+
