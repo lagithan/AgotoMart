@@ -25,7 +25,7 @@ const ProductDetails = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/product/get');
+      const response = await axios.get('http://localhost:4000/product/get');
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -59,10 +59,10 @@ const ProductDetails = () => {
       if (editProductIndex !== null) {
         // Update existing product
         const productId = products[editProductIndex]._id;
-        await axios.put(`http://localhost:5000/product/update/${productId}`, formData);
+        await axios.put(`http://localhost:4000/product/update/${productId}`, formData);
       }
       else {
-        await axios.post('http://localhost:5000/product/add', formData);
+        await axios.post('http://localhost:4000/product/add', formData);
       }
 
       fetchProducts();
@@ -97,7 +97,7 @@ const ProductDetails = () => {
   const handleDeleteClick = async (index) => {
     try {
       const productId = products[index]._id;
-      await axios.delete(`http://localhost:5000/product/delete/${productId}`);
+      await axios.delete(`http://localhost:4000/product/delete/${productId}`);
       fetchProducts();
     } catch (err) {
       console.error('Error deleting product:', err);

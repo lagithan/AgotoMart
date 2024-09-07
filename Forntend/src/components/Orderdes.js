@@ -31,7 +31,7 @@ const Orderdes = ({ item,setselectitem }) => {
     <div className='back-drop'>
       <div className='order-popup'>
         <img className='desc-img' src={item.image.url} alt="Product image" />
-        <div className='popup-content'>
+        <div className='popup-content1'>
             <CloseIcon fontSize='large' className='pop-close-btn' onClick={handleclose}/>
           <h2 className='popup-h'>{item.name}</h2>
           <h3 style={{ fontSize: '22px', fontFamily: 'poppins' }}>Description</h3>

@@ -161,7 +161,7 @@ const Searchcontent = ({ searchItems, handleSelect }) => {
         setLoading(true);
         console.log(searchItems)
         try {
-            const response = await axios.get(`http://localhost:5000/product/search/${searchItems}`);
+            const response = await axios.get(`http://localhost:4000/product/search/${searchItems}`);
 
             if (response.status === 204) {
                 setAvailable(true);

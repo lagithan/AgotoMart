@@ -8,7 +8,7 @@ const Orders = () => {
 
   useEffect(() => {
     // Fetch orders from the backend
-    fetch('http://localhost:5000/api/orders') // Assuming your backend is running on localhost:5000
+    fetch('http://localhost:4000/api/orders') // Assuming your backend is running on localhost:5000
       .then(response => response.json())
       .then(data => setOrders(data))
       .catch(error => console.error('Error fetching orders:', error));
