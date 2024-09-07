@@ -124,17 +124,24 @@ const Login = ({ setform, form }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="login-container">
-        <div className="left-t">
-          <span
-            style={{
-              fontSize: "32px",
-              fontWeight: "bold",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            Welcome back to AgroMart
+    <div className='login-container'>
+      <div className='left-t'>
+        <span style={{fontSize:'32px',fontWeight:'bold',color:'white',textAlign:'center'}}>Welcome back to AgroMart</span>
+        <span className='head1'>Login</span>
+        <div className='form-container1'>
+        <div className='form-i'>
+          <input type='email' name='email' required value={values.email} onChange={handleChange} placeholder='Enter your email'/>
+          {errors.email && <div className={`error ${animate ? 'fade-in' : ''}`}>{errors.email}</div>}
+        </div>
+        <div className='form-i'>
+          <input type='password' name='password' required value={values.password} onChange={handleChange} placeholder='Enter your password'/>
+          {errors.password && <div className={`error ${animate ? 'fade-in' : ''}`}>{errors.name}</div>
+        }
+        </div>
+        {serror && <div style={{ color: 'red', fontSize: '18px',position:"relative",left:'100px'}}>{serror}</div>}
+          <button  type='submit' className='submit-btn2' >Login</button>
+          <span style={{margin:'0px',color:'white'}} className='login-f' >Don't you have an account? 
+            <NavLink style={{margin:'5px'}} onClick={hanlestate}>Sign up</NavLink>
           </span>
           <span className="head1">Login</span>
           <div className="form-container1">

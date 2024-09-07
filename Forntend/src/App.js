@@ -8,6 +8,7 @@ import { UserProvider } from './components/Userdata';
 import OrderForm from './components/OrderForm';
 import ContactUs from './components/ContactUs';
 import AboutUs from './components/AboutUs';
+import CartOrder from './components/Cartorder';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/index/orderform" element={<OrderForm/>} />
         <Route path="/index/*" element={<Index />} />
         <Route path="/:state" element={<Loginform />} />
+        <Route path="/cartorder" element={<CartOrder />} />
       </Routes>
     </div>
     </UserProvider>

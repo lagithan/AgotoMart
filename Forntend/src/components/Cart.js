@@ -1,110 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import './viewcart.css';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-const ViewCart = () => {
-  const [products, setProducts] = useState([]);
+import { useNavigate } from 'react-router-dom'; // To navigate to the OrderForm
+import { UserContext } from './Userdata';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-  // This function simulates fetching cart items from an API
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      // Simulated API call
-      const response = [
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-        {
-          name: 'Gotukola',
-          price: 1500,
-          quantity: 2,
-          image: 'https://via.placeholder.com/80', // Replace with the actual image URL
-        },
-      ];
-      setProducts(response);
-    };
+const CartPage = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const { user_data } = useContext(UserContext);
+  const [deleteState, setDelete] = useState(false);
+  const navigate = useNavigate(); // For navigation
 
-    fetchCartItems();
-  }, []);
-
-  const calculateSubtotal = (price, quantity) => price * quantity;
-
-  const calculateTotal = () =>
-    products.reduce(
-      (total, product) => total + calculateSubtotal(product.price, product.quantity),
-      0
-    );
-
-  const handleQuantityChange = (index, delta) => {
-    const newProducts = [...products];
-    newProducts[index].quantity = Math.max(0, newProducts[index].quantity + delta);
-    setProducts(newProducts);
+  const fetchCart = async () => {
+    try {
+      const response = await axios.get(`/cart/${user_data.id}`);
+      setCartItems(response.data || []);
+    } catch (error) {
+      console.error('Error fetching cart items:', error.message);
+    }
   };
 
-  const handleDelete = (index) => {
-    const newProducts = products.filter((_, i) => i !== index);
-    setProducts(newProducts);
+  useEffect(() => {
+    fetchCart();
+  }, [deleteState]);
+
+  const handleDelete = async (itemId) => {
+    try {
+      await axios.delete(`http://localhost:5000/cart/${itemId}`);
+      setDelete(prevState => !prevState);
+    } catch (error) {
+      console.error('Error deleting cart item:', error.message);
+    }
+  };
+
+  const handleProceedToCheckout = () => {
+    navigate('/cartorder', { state: { cartItems } }); // Pass cart items to the OrderForm
   };
 
   return (
-    <div className="cart-table-container">
-      <table className="cart-table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={index} className="cart-item">
-              <td>
-                <img src={product.image} alt={product.name} className="product-image" />
-                <span>{product.name}</span>
-              </td>
-              <td>Rs.{product.price.toFixed(2)}</td>
-              <td>
-                <button
-                  className="quantity-button"
-                  onClick={() => handleQuantityChange(index, 1)}
-                >
-                  +
-                </button>
-                <span className="quantity-text">{product.quantity}</span>
-                <button
-                  className="quantity-button"
-                  onClick={() => handleQuantityChange(index, -1)}
-                >
-                  -
-                </button>
-              </td>
-              <td>Rs.{calculateSubtotal(product.price, product.quantity).toFixed(2)}</td>
-              <td>
-                <button className="delete-button" onClick={() => handleDelete(index)}>
-                  <DeleteOutlineOutlinedIcon/>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="cart-total">
-        <span>Cart Total</span>
-        <span>Rs.{calculateTotal().toFixed(2)}</span>
-      </div>
-      <button className="checkout-button">Check out</button>
+    <div className="cart-page">
+      <h2>Your Cart</h2>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <>
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item._id} className="cart-item">
+                <img src={item.items.image} alt={item.items.name} />
+                <div className="item-details">
+                  <h3>{item.items.name}</h3>
+                  <p>Quantity: {item.items.quantity}</p>
+                  <p>Price: Rs. {item.items.unitPrice}</p>
+                  <p>Total: Rs. {item.items.totalPrice}</p>
+                  <button onClick={() => handleDelete(item._id)}>
+                    <DeleteIcon sx={{color:'black'}} />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <button className="checkout-button" onClick={handleProceedToCheckout}>
+            Proceed to Checkout
+          </button>
+        </>
+      )}
     </div>
   );
 };
 
-export default ViewCart;
+export default CartPage;

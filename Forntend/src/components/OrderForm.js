@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import './orderform.css';
+import { UserContext } from './Userdata';
+import { useNavigate } from 'react-router-dom';
 
 const OrderForm = () => {
+  const location = useLocation();
+  const { selectedItem } = location.state || {};
+  const { user_data } = useContext(UserContext);
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
+    user_id: user_data.id,
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -11,12 +21,32 @@ const OrderForm = () => {
     paymentMethod: '',
     termsAccepted: false,
     items: [
-      { name: 'Gotukola', unitPrice: 100, quantity: 2, totalPrice: 200 },
-      { name: 'Gotukola', unitPrice: 100, quantity: 2, totalPrice: 200 },
-      { name: 'Gotukola', unitPrice: 100, quantity: 2, totalPrice: 200 },
-      { name: 'Gotukola', unitPrice: 100, quantity: 2, totalPrice: 200 }
-    ]
+      {
+        name: selectedItem?.name || '',
+        image: selectedItem?.image.url,
+        unitPrice: selectedItem?.price || 0,
+        quantity: selectedItem?.quantity || 0,
+        totalPrice: (selectedItem?.price || 0) * (selectedItem?.quantity || 0),
+      }
+    ],
   });
+
+  useEffect(() => {
+    if (selectedItem) {
+      setFormData(prevData => ({
+        ...prevData,
+        items: [
+          {
+            name: selectedItem.name,
+            image: selectedItem.image.url,
+            unitPrice: selectedItem.price,
+            quantity: selectedItem.quantity,
+            totalPrice: selectedItem.price * selectedItem.quantity,
+          }
+        ]
+      }));
+    }
+  }, [selectedItem]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -35,26 +65,10 @@ const OrderForm = () => {
     }
 
     try {
-      const response = await fetch('https://your-api-endpoint.com/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
+      const response = await axios.post('http://localhost:5000/orders/place', formData);
+      if (response.status === 201) {
         alert('Order placed successfully!');
-        setFormData({
-          ...formData,
-          firstName: '',
-          lastName: '',
-          phoneNumber: '',
-          district: '',
-          address: '',
-          paymentMethod: '',
-          termsAccepted: false,
-        });
+        navigate('/'); // Navigate to home page or any other desired route
       } else {
         alert('Failed to place order.');
       }
@@ -65,10 +79,10 @@ const OrderForm = () => {
   };
 
   return (
-    <div className="payment-billing-container">
-      <h2>Payment & Billing</h2>
-      <div className="content-container">
-        <div className="billing-details">
+    <div className="payment-billing-wrapper">
+      <h2 className="payment-billing-heading">Payment & Billing</h2>
+      <div className="content-wrapper">
+        <div className="billing-section">
           <h3>Billing Details</h3>
           <form onSubmit={handleSubmit}>
             <p>First Name</p>
@@ -118,12 +132,12 @@ const OrderForm = () => {
             />
           </form>
         </div>
-        <div className="order-summary">
-          <div className="order-items-container">
+        <div className="order-summary-section">
+          <div className="order-items-wrapper">
             {formData.items.map((item, index) => (
-              <div key={index} className="order-item">
-                <img src={item.image} alt="Product" />
-                <div className='text-arrange'>
+              <div key={index} className="order-item-wrapper">
+                <img src={item.image || 'default-image-url'} alt="Product" />
+                <div className="order-details-text">
                   <p><strong>Name:</strong> {item.name}</p>
                   <p><strong>Unit Price:</strong> Rs. {item.unitPrice}.00</p>
                   <p><strong>Quantity:</strong> {item.quantity}</p>
@@ -132,8 +146,8 @@ const OrderForm = () => {
               </div>
             ))}
           </div>
-          <p className='Totalvalue'><strong>Total:</strong> Rs. {formData.items.reduce((acc, item) => acc + item.totalPrice, 0)}.00</p>
-          <div className="payment-options">
+          <p className="total-value"><strong>Total:</strong> Rs. {formData.items.reduce((acc, item) => acc + item.totalPrice, 0)}.00</p>
+          <div className="payment-options-wrapper">
             <div>
               <input
                 type="radio"
@@ -143,32 +157,32 @@ const OrderForm = () => {
                 checked={formData.paymentMethod === 'payhere'}
                 onChange={handleChange}
               />
-              <label htmlFor="payhere">Pay here</label>
+              <label htmlFor="payhere">Card Payment</label>
             </div>
             <div>
               <input
                 type="radio"
-                id="creditCard"
+                id="cashOnDelivery"
                 name="paymentMethod"
-                value="creditCard"
-                checked={formData.paymentMethod === 'creditCard'}
+                value="cashOnDelivery"
+                checked={formData.paymentMethod === 'cashOnDelivery'}
                 onChange={handleChange}
               />
-              <label htmlFor="creditCard">Credit Card</label>
+              <label htmlFor="cashOnDelivery">Cash on Delivery</label>
             </div>
           </div>
-          <p className="disclaimer">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.</p>
-          <div className="terms">
+          
+          <div className="terms-checkbox-wrapper">
             <input
               type="checkbox"
-              id="agree"
               name="termsAccepted"
               checked={formData.termsAccepted}
               onChange={handleChange}
             />
-            <label htmlFor="agree">I have read and agree to the website terms and conditions.</label>
+            <label>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
+            Accept terms and conditions</label>
           </div>
-          <button className="pay-button" type="submit" onClick={handleSubmit}>Pay Now</button>
+          <button className="pay-now-button" onClick={handleSubmit}>Place Order</button>
         </div>
       </div>
     </div>

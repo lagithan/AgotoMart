@@ -1,60 +1,89 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './popup.css';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { UserContext } from './Userdata';
 
-const Orderdes = ({ item,setselectitem }) => {
+const Orderdes = ({ item, setselectitem}) => {
+  const { user_data,isregistered } = useContext(UserContext);
   const [quantity, setQuantity] = useState(1);
-  const generateStockRange = (maxStock) => {
-    return Array.from({ length: maxStock }, (_, i) => i + 1);
-  };
   const navigate = useNavigate();
-  const stockRange = generateStockRange(item.quantity);
-  
 
   const handleChange = (event) => {
     setQuantity(event.target.value);
   };
 
-  const handleclose=()=>{
-      setselectitem({});
-  }
+  const handleAddToCart = async () => {
+
+    let userId=user_data.id;
+    
+    try {
+      const updatedItem = { ...item, quantity: Number(quantity),totalamount:item.price * quantity, };
+      setselectitem(updatedItem);
+      console.log(updatedItem);
+      await axios.post('http://localhost:5000/cart/add', {
+        userId,
+        item: updatedItem
+      });
+      alert("Item added to cart");
+    } catch (error) {
+      console.error('Failed to add item to cart:', error);
+    }
+  };
+  
+
+  const handleBuyNow = () => {
+    if (isregistered) {
+      navigate("/index/orderform", {
+        state: {
+          selectedItem: {
+            ...item,
+            quantity: Number(quantity),
+          },
+        },
+      });
+    } else {
+      alert("Login your account first");
+    }
+  };
+
+  if (!item) return null;
 
   return (
     <div className='back-drop'>
       <div className='order-popup'>
-        <img className='desc-img' src={item.image.url} alt="Product image" />
+
+        <img className='desc-img' src={item.image?.url} alt="Product image" />
         <div className='popup-content1'>
-            <CloseIcon fontSize='large' className='pop-close-btn1' onClick={handleclose}/>
+          <CloseIcon fontSize='large' className='pop-close-btn1' onClick={() => setselectitem({})} />
           <h2 className='popup-h'>{item.name}</h2>
           <h3 style={{ fontSize: '22px', fontFamily: 'poppins' }}>Description</h3>
-          <p style={{ fontSize: '15px', height: '150px', overflow:'hidden'}}>
+          <p style={{ fontSize: '15px', height: '150px', overflow: 'hidden' }}>
             {item.description}
           </p>
           <h4 style={{ color: 'green', fontFamily: 'poppins', fontWeight: '500', marginTop: '10px' }}>Available</h4>
           <FormControl sx={{ m: 0, minWidth: 120 }}>
-            <InputLabel id="quantity-select-label" sx={{ display: 'none' }}>Quantity</InputLabel>
-            <Select className='number-input'
+            <Select
+              className='number-input'
               value={quantity}
               onChange={handleChange}
               sx={{
                 height: 35,
                 '.MuiSelect-select': {
-                  padding: '0 14px', 
+                  padding: '0 14px',
                 },
                 '.MuiOutlinedInput-notchedOutline': {
-                  border: 'none', 
+                  border: 'none',
                 },
               }}
             >
-              {stockRange.map((num) => (
+              {Array.from({ length: item.quantity }, (_, i) => i + 1).map((num) => (
                 <MenuItem key={num} value={num}>{num}</MenuItem>
               ))}
             </Select>
@@ -66,13 +95,17 @@ const Orderdes = ({ item,setselectitem }) => {
             Total Rs.{item.price * quantity}
           </h2>
           <div className='popup-btn'>
-            <button className='addcart-btn'><ShoppingCartOutlinedIcon fontSize="medium"/> Add to cart</button>
-            <button className='buy-btn' onClick={() => navigate("/index/orderform")}><LocalMallOutlinedIcon fontSize="medium" /> Buy now</button>
+            <button className='addcart-btn' onClick={handleAddToCart}>
+              <ShoppingCartOutlinedIcon fontSize="medium" /> Add to cart
+            </button>
+            <button className='buy-btn' onClick={handleBuyNow}>
+              <LocalMallOutlinedIcon fontSize="medium" /> Buy now
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Orderdes;
