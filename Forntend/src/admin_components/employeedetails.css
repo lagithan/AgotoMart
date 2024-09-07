@@ -11,9 +11,9 @@
   margin-bottom: 20px;
 }
 
-.add-button {
+.add-button1 {
   height: 40px;
-  width: 120px;
+  width: 200px;
   background-color: #084707;
   color: white;
   border: none;
@@ -23,7 +23,7 @@
   font-weight: 600;
 }
 
-.add-button:hover {
+.add-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.1);
 }
@@ -58,9 +58,27 @@
   align-items: center;
   gap: 10px;
 }
+/* Close button styling */
+.close-button1 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
 
-.update-button,
-.delete-button {
+.close-button1:hover {
+  color: #0a5b08;
+  background-color:white;
+}
+
+
+.update-button1,
+.delete-button1 {
   height: 35px;
   border: none;
   border-radius: 5px;
@@ -72,24 +90,24 @@
   padding: 10px 20px;
 }
 
-.update-button {
+.update-button1 {
   background-color: #084707;
   color: white;
   transition: all 0.5s ease;
 }
 
-.update-button:hover {
+.update-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.1);
 }
 
-.delete-button {
+.delete-button1 {
   background-color: #e43131;
   color: white;
   transition: all 0.5s ease;
 }
 
-.delete-button:hover {
+.delete-button1:hover {
   background-color: #ff4d4d;
   transform: scale(1.1);
 }
@@ -154,7 +172,7 @@ input:focus {
   outline: none;
 }
 
-.contact-info {
+.contact-info2 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -167,8 +185,8 @@ input:focus {
   margin-top: 20px;
 }
 
-.button-container .add-button,
-.button-container .update-button {
+.button-container .add-button1,
+.button-container .update-button1 {
   width: 120px;
   height: 40px;
   background-color: #084707;
@@ -180,8 +198,8 @@ input:focus {
   transition: all 0.3s ease;
 }
 
-.button-container .add-button:hover,
-.button-container .update-button:hover {
+.button-container .add-button1:hover,
+.button-container .update-button1:hover {
   background-color: #0a5b08;
   transform: scale(1.05);
 }

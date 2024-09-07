@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import router from './Routes/Routes.js';
 import product from './Routes/Productroute.js';
+import employee from './Routes/Employeeroute.js'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import payment from './Routes/Paymentroute.js';
 
 dotenv.config();
 
@@ -13,10 +15,7 @@ const app = express();
 // Database connection
 async function connectDatabase() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(process.env.MONGO_URI);
         console.log('AgroMart connected to database');
     } catch (error) {
         console.error('Failed to connect to AgroMart database:', error);
@@ -38,6 +37,10 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Routes
 app.use('/user', router);
 app.use('/product', product);
+app.use('/employee',employee);
+app.use('/payment',payment);
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -45,7 +48,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

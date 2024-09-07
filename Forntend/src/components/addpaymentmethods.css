@@ -1,4 +1,4 @@
-/* Existing styles */
+
 .payment-method-box {
     border: 1px solid #ccc;
     padding: 20px;
@@ -46,7 +46,7 @@
     background-color: #0056b3;
   }
   
-  /* New styles for error message */
+  
   .error-message {
     color: red;
     margin-bottom: 15px;

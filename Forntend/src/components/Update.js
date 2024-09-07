@@ -1,40 +1,199 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect,useContext } from 'react';
+// import { useNavigate,useParams} from 'react-router-dom'; // Import useNavigate and useParams hooks
+// import './update.css'; // Import the CSS file
+// import axios from 'axios';
+// import { UserContext } from './Userdata'; 
+
+// const Update = () => {
+//   const { id } = useParams();
+//   const { user_data } = useContext(UserContext); 
+// // Get the index from the URL
+//   const navigate = useNavigate(); // Initialize useNavigate
+  
+//   // Initialize state with default values
+//   const [cardName, setCardName] = useState('');
+//   const [cardNumber, setCardNumber] = useState('');
+//   const [expiryDate, setExpiryDate] = useState('');
+//   const [cvv, setCvv] = useState('');
+//   const [errors, setErrors] = useState({}); // State for storing error messages
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+  
+//   const fetchPaymentMethod = async () => {
+//     try {
+//         const response = await axios.get(`http://localhost:4000/payment/get/${id}`);
+//         const paymentMethod = response.data;
+
+//         setCardName(paymentMethod.cardName);
+//         setCardNumber(paymentMethod.cardNumber);
+//         setExpiryDate(paymentMethod.expiryDate);
+//         setCvv(paymentMethod.cvv);
+//     } catch (error) {
+//         console.error('Error fetching payment method:', error);
+//     }
+// };
+// fetchPaymentMethod();
+// },[id]);
+
+//   const validateForm = () => {
+//     const newErrors = {};
+//     const cardNameRegex = /^[A-Za-z\s]+$/; // Regex for letters and spaces
+//     const cardNumberRegex = /^\d{12}$/; // Regex for exactly 12 digits
+//     const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY format
+//     const cvvRegex = /^\d{3}$/; // Regex for exactly 3 digits
+
+//     if (!cardNameRegex.test(cardName)) {
+//       newErrors.cardName = 'Card name should contain only letters and spaces.';
+//     }
+//     if (!cardNumberRegex.test(cardNumber)) {
+//       newErrors.cardNumber = 'Card number should be exactly 12 digits.';
+//     }
+//     if (!expiryDateRegex.test(expiryDate)) {
+//       newErrors.expiryDate = 'Expiry date should be in MM/YY format.';
+//     }
+//     if (!cvvRegex.test(cvv)) {
+//       newErrors.cvv = 'CVV should be exactly 3 digits.';
+//     }
+
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0; // Returns true if no errors
+//   };
+
+//   const handleSubmit = async(e) => {
+//     e.preventDefault();
+
+//     if (validateForm()) {
+//       // Create an object with the updated form data
+//       setLoading(true);
+//       const updatedPayment = {
+//         cardName,
+//         cardNumber,
+//         expiryDate,
+//         cvv,
+//     };
+
+//     try {
+//         const response = await axios.put(`http://localhost:4000/payment/update/${id}`, updatedPayment, {
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//         });
+
+//         if (response.status === 200) {
+//             console.log('Payment Method updated:', response.data);
+
+//             // Navigate to the Saved component after form submission
+//             navigate('/index/saved');
+//         } else {
+//             console.error('Failed to update payment method:', response.statusText);
+//         }
+//     } catch (error) {
+//         console.error('Error occurred while updating payment method:', error);
+//     } finally {
+//         setLoading(false);
+//     }
+// }
+//   };
+
+//   return (
+//     <div className="update-payment-method">
+//       <div className="form-container">
+//         <h3>Update Payment Method</h3>
+//         <form onSubmit={handleSubmit}>
+//           <div className="form-group">
+//             <label htmlFor="cardName">Card Name</label>
+//             <input
+//               type="text"
+//               id="cardName"
+//               value={cardName}
+//               onChange={(e) => setCardName(e.target.value)}
+//               required
+//             />
+//             {errors.cardName && <div className="error-message">{errors.cardName}</div>}
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="cardNumber">Card Number</label>
+//             <input
+//               type="text"
+//               id="cardNumber"
+//               value={cardNumber}
+//               onChange={(e) => setCardNumber(e.target.value)}
+//               required
+//             />
+//             {errors.cardNumber && <div className="error-message">{errors.cardNumber}</div>}
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="expiryDate">Expiry Date</label>
+//             <input
+//               type="text"
+//               id="expiryDate"
+//               value={expiryDate}
+//               onChange={(e) => setExpiryDate(e.target.value)}
+//               required
+//               placeholder="MM/YY"
+//             />
+//             {errors.expiryDate && <div className="error-message">{errors.expiryDate}</div>}
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="cvv">CVV</label>
+//             <input
+//               type="text"
+//               id="cvv"
+//               value={cvv}
+//               onChange={(e) => setCvv(e.target.value)}
+//               required
+//             />
+//             {errors.cvv && <div className="error-message">{errors.cvv}</div>}
+//           </div>
+//           <button type="submit" disabled={loading}>
+//                     {loading ? 'Updating...' : 'Update Card'}
+//                 </button>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Update;
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate and useParams hooks
 import './update.css'; // Import the CSS file
+import axios from 'axios';
+import { UserContext } from './Userdata'; 
 
 const Update = () => {
-  const { index } = useParams(); // Get the index from the URL
+  const { user_data } = useContext(UserContext); 
+  const { id } = useParams(); // Get the payment method ID from the URL
   const navigate = useNavigate(); // Initialize useNavigate
-  
-  // Initialize state with default values
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [errors, setErrors] = useState({}); // State for storing error messages
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Retrieve the payment method details based on the index
-    const paymentMethods = [
-      { cardNumber: '**** **** 4567', name: 'Siva', expiryDate: '5/27/15' },
-      { cardNumber: 'Customer', name: 'Labour', expiryDate: '5/19/12' },
-      { cardNumber: 'Customer', name: 'Family', expiryDate: '3/4/16' },
-      { cardNumber: 'Customer', name: 'Direct', expiryDate: '3/4/16' },
-      { cardNumber: 'Customer', name: 'Criminal', expiryDate: '7/27/13' },
-      { cardNumber: 'Customer', name: 'Election', expiryDate: '5/27/15' },
-      { cardNumber: 'Customer', name: 'Indirect T', expiryDate: '7/11/19' },
-    ];
+    const fetchPaymentMethod = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/payment/get/${user_data.id}`);
+        const paymentMethod = response.data.find(method => method._id === id); // Find the method with the specific ID
 
-    // Load the payment method details based on the index
-    const paymentMethod = paymentMethods[index];
-    
-    if (paymentMethod) {
-      setCardName(paymentMethod.name);
-      setCardNumber(paymentMethod.cardNumber);
-      setExpiryDate(paymentMethod.expiryDate);
-      setCvv(''); // CVV is not included in paymentMethods array, but set it if required
-    }
-  }, [index]);
+        if (paymentMethod) {
+          setCardName(paymentMethod.cardName);
+          setCardNumber(paymentMethod.cardNumber);
+          setExpiryDate(paymentMethod.expiryDate);
+          setCvv(paymentMethod.cvv);
+        } else {
+          console.error('Payment method not found');
+        }
+      } catch (error) {
+        console.error('Error fetching payment method:', error);
+      }
+    };
+
+    fetchPaymentMethod();
+  }, [user_data, id]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -60,23 +219,36 @@ const Update = () => {
     return Object.keys(newErrors).length === 0; // Returns true if no errors
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Create an object with the updated form data
-      const updatedPaymentMethod = {
+      setLoading(true);
+      const updatedPayment = {
         cardName,
         cardNumber,
         expiryDate,
-        cvv
+        cvv,
       };
 
-      // Log the updated payment method
-      console.log('Updated Payment Method:', updatedPaymentMethod);
+      try {
+        const response = await axios.put(`http://localhost:4000/payment/update/${id}`, updatedPayment, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      // Optionally, navigate back to the saved payment methods list
-      navigate('/index/saved'); // Replace '/index/saved' with the actual route to the SavedPaymentMethods component
+        if (response.status === 200) {
+          console.log('Payment Method updated:', response.data);
+          navigate('/index/saved'); // Navigate to the Saved component after successful update
+        } else {
+          console.error('Failed to update payment method:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error occurred while updating payment method:', error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -130,7 +302,9 @@ const Update = () => {
             />
             {errors.cvv && <div className="error-message">{errors.cvv}</div>}
           </div>
-          <button type="submit">Update</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Updating...' : 'Update Card'}
+          </button>
         </form>
       </div>
     </div>

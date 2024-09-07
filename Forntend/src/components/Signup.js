@@ -91,7 +91,7 @@ const Signup = ({ setform, form }) => {
     if (allValuesProvided && noErrors) {
       try {
         const { confirmpaswd, ...formdata } = values;
-        const response = await axios.post('http://localhost:5000/user/signup', formdata);
+        const response = await axios.post('http://localhost:4000/user/signup', formdata);
         console.log("Signup Response:", response.data);
 
         const { userdata, message } = response.data;
@@ -138,7 +138,7 @@ const Signup = ({ setform, form }) => {
       <div className='login-container'>
         <div className='left-t'>
           <span className='head1'>Sign up</span>
-          <div className='form-container'>
+          <div className='form-container1'>
             <div className='form-i'>
               <input
                 type='text'

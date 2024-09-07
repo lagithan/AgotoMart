@@ -34,7 +34,7 @@ const Home = () => {
             ) : (
                 <>
                     <Imageslider />
-                    <Category />  
+                    <Category setItems={setItems}/>  
                 </>
             )}
         </>
@@ -43,13 +43,16 @@ const Home = () => {
 
 const Search = ({ searchItems, setItems }) => {
     const categories = [
-        'Vegetable Plants',
-        'Fruits',
-        'Herbs',
-        'Flowers',
-        'Fertilizers',
-        'Tools & Accessories'
+        'Plant',
+        'Seeds',
+        'Fertilizer'
     ];
+
+    // Handle the change event of the select dropdown
+    const handleCategoryChange = (event) => {
+        const selectedCategory = event.target.value;
+        setItems(selectedCategory); // Set the selected category to searchItems state
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -65,7 +68,7 @@ const Search = ({ searchItems, setItems }) => {
         <div className='searchbar'>
             <div className='searchbar-container'>
                 <div className='browse-c'>
-                    <select>
+                    <select onChange={handleCategoryChange}>
                         <option value="">Browse categories</option>
                         {categories.map((category) => (
                             <option key={category} value={category}>
@@ -88,6 +91,7 @@ const Search = ({ searchItems, setItems }) => {
         </div>
     );
 };
+
 
 const Imageslider = () => {
     const images = [indoorplants, vagetable, flowerplants, seeds, fertilizers];
@@ -237,22 +241,22 @@ const Searchcontent = ({ searchItems, handleSelect }) => {
     );
 };
 
-const Category = () => {
+const Category = ({setItems}) => {
     return (
         <div className='catergory-container'>
             <div className='card-h'>Our Products</div>
             <div className='cardbox'>
-                <div className='c-box'>
+                <div className='c-box' onClick={()=>setItems("Plant")}>
                     <img src={plantc} />
                     <span style={{fontSize:'24px'}}>Plants</span>
                     <span style={{textAlign:'center'}}>We have diverse selection of vegetable plants, aromatic herbs, vibrant flowers, and easy-to-grow indoor plants, all perfect for any garden or home.</span>
                 </div>
-                <div className='c-box'>
+                <div className='c-box' onClick={()=>setItems("Seeds")}>
                     <img src={seedc} />
                     <span style={{fontSize:'24px'}}>Seeds</span>
                     <span style={{textAlign:'center'}}>We offer a diverse selection of premium vegetable seeds, aromatic herb seeds, vibrant flower seeds, and high-quality fertilizers to enhance your garden’s growth and vitality.</span>
                 </div>
-                <div className='c-box'>
+                <div className='c-box' onClick={()=>setItems("Fertilizer")}>
                     <img src={fertilizerc} />
                     <span style={{fontSize:'24px'}}>Fertilizers</span>
                     <span style={{textAlign:'center'}}>Find top-quality fertilizers at Agro Mart, designed to boost growth and yield for your vegetable, herb, and flower gardens, ensuring vibrant and healthy plants.</span>

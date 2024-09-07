@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
-import './addpaymentmethods.css'; // Import the CSS file
+
+
+import React, { useState,useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios
+import './addpaymentmethods.css';
+import { UserContext } from './Userdata';
 
 const AddPaymentMethod = () => {
+  const{user_data,isregistered} =useContext(UserContext)
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
-  const [errors, setErrors] = useState({}); // State for storing error messages
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false); // State to manage loading state
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
-    const cardNameRegex = /^[A-Za-z\s]+$/; // Regex for letters and spaces
-    const cardNumberRegex = /^\d{12}$/; // Regex for exactly 12 digits
-    const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY format
-    const cvvRegex = /^\d{3}$/; // Regex for exactly 3 digits
+    const cardNameRegex = /^[A-Za-z\s]+$/;
+    const cardNumberRegex = /^\d{12}$/;
+    const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    const cvvRegex = /^\d{3}$/;
 
     if (!cardNameRegex.test(cardName)) {
       newErrors.cardName = 'Card name should contain only letters and spaces.';
@@ -32,32 +38,48 @@ const AddPaymentMethod = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Create an object with the form data
+      setLoading(true); // Set loading state to true
       const paymentMethod = {
-        cardName: cardName,
-        cardNumber: cardNumber,
-        expiryDate: expiryDate,
-        cvv: cvv
+        userid:user_data.id,
+        cardName,
+        cardNumber,
+        expiryDate,
+        cvv
       };
+       console.log(paymentMethod)
+      try {
+        const response = await axios.post('http://localhost:4000/payment/add', paymentMethod, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      // Handle the storage or processing of the paymentMethod object
-      console.log('Payment Method:', paymentMethod);
+        if (response.status === 201) {
+          console.log('Payment Method saved:', response.data);
 
-      // Optionally, clear the form after submission
-      setCardName('');
-      setCardNumber('');
-      setExpiryDate('');
-      setCvv('');
+          // Clear the form after successful submission
+          setCardName('');
+          setCardNumber('');
+          setExpiryDate('');
+          setCvv('');
 
-      // Navigate to the Saved component after form submission
-      navigate('/index/saved'); // Replace '/saved' with the actual route to the Saved component
+          // Navigate to the Saved component after form submission
+          navigate('/index/saved');
+        } else {
+          console.error('Failed to save payment method:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error occurred while saving payment method:', error);
+      } finally {
+        setLoading(false); // Set loading state to false
+      }
     }
   };
 
@@ -110,7 +132,9 @@ const AddPaymentMethod = () => {
           />
           {errors.cvv && <div className="error-message">{errors.cvv}</div>}
         </div>
-        <button type="submit">Add Card</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Adding...' : 'Add Card'}
+        </button>
       </form>
     </div>
   );
