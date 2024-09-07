@@ -58,6 +58,7 @@ const Orderdes = ({ item, setselectitem}) => {
   return (
     <div className='back-drop'>
       <div className='order-popup'>
+
         <img className='desc-img' src={item.image?.url} alt="Product image" />
         <div className='popup-content1'>
           <CloseIcon fontSize='large' className='pop-close-btn1' onClick={() => setselectitem({})} />

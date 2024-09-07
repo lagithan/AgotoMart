@@ -1,0 +1,193 @@
+/* Overview.css */
+
+.userprofile{
+    display: flex;
+    flex-direction: column;
+}
+
+.userprofile h1 {
+    padding: 10px 20px;
+}
+
+.head {
+    font-size: 50px; /* Larger font size for the heading */
+    font-weight: bold; /* Bold text for the heading */
+    margin-bottom: 30px; /* Space below the heading */
+    color: rgb(255, 255, 255); /* light text color */
+    text-align: center; /* Center align the heading text */
+    position: sticky; /* Make the heading sticky */
+    top: 0; /* Stick the heading to the top of its container */
+    background-color: #217536; /* Match the container background color */
+    z-index: 1; /* Ensure the heading is on top of other content */
+    border-radius: 10px;
+    
+   
+}
+
+
+.overview {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+    
+}
+.Mainhead1 {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #084707;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+}
+
+.overview-item {
+    font-size: 18px; /* Font size for the details */
+    line-height: 1.6; /* Spacing between lines */
+    color: #555; /* Medium gray text color */
+    margin-bottom: 20px; /* Space after the details */
+}
+
+.overview-item span {
+    display: block; /* Display each detail on a new line */
+    margin-bottom: 10px; /* Space below each detail */
+}
+
+.overview-item span:last-child {
+    margin-bottom: 0; /* Remove space below the last detail */
+}
+
+.buttons-container {
+    display: flex; /* Use flexbox for better alignment */
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Space between buttons */
+}
+
+.Mainbutton1 {
+    background-color: #084707; /* Green button background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.Mainbutton1:hover {
+    background-color: #15b513; /* Darken button on hover */
+}
+
+.mainbutton2 {
+    background-color: #084707; /* Green button background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background transition */
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.mainbutton2:hover {
+    background-color: #15b513; /* Darken button on hover */
+}
+
+.mainbutton3 {
+    background-color: #084707; /* Green button background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth background transition */
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.mainbutton3:hover {
+    background-color: #15b513; /* Darken button on hover */
+}
+
+
+
+/* Modal Styles */
+.modal {
+    position: fixed; /* Cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex; /* Center the modal content */
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure it's on top of other content */
+}
+
+.modal-content {
+    background-color: #fff; /* White background for modal */
+    padding: 20px; /* Padding inside modal */
+    border-radius: 10px; /* Rounded corners */
+    width: 500px; /* Width of the modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    position: relative; /* Ensure proper positioning of close button */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space below each input field */
+}
+
+.form-group label {
+    display: block; /* Make labels appear above inputs */
+    font-weight: bold; /* Bold labels */
+    margin-top: 10px;
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.form-group input {
+    width: 100%; /* Full width inputs */
+    padding: 8px; /* Padding inside input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for input text */
+    transition: border-color 0.2s; /* Smooth border color transition */
+}
+
+.form-group input:focus {
+    border-color: rgb(118, 165, 49); /* Green border on focus */
+}
+
+.Error-message1 {
+    color: red; /* Red error message */
+    font-size: 12px; /* Smaller font size for errors */
+    margin-top: 5px; /* Space above the error message */
+}
+
+.mainbutton1:disabled {
+    background-color: #ccc; /* Gray background for disabled buttons */
+    cursor: not-allowed; /* Disable pointer on hover */
+}
+
+/* Error highlight */
+.Error {
+    border-color: red; /* Highlight error fields with red border */
+}
+
+/* Close button for the modal */
+.modal-content .close-button {
+    position: absolute; /* Position relative to modal content */
+    top: 10px; /* Space from the top */
+    right: 10px; /* Space from the right */
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 20px; /* Larger font size */
+    cursor: pointer; /* Pointer on hover */
+}

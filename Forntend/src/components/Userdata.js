@@ -7,7 +7,8 @@ export const UserProvider = ({ children }) => {
         id: '',
         name: '',
         email: '',
-        role: ''
+        role: '',
+        phonenumber:''
       });
       
     const [isregistered,setregister]=useState(false)
