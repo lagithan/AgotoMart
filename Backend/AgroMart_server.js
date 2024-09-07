@@ -1,16 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import userRouter from './Routes/Routes.js';
-import productRouter from './Routes/productroute.js';
 import orderRouter from './Routes/orderroutes.js'; // Import the order routes
-import cartRouter from './Routes/cartroutes.js';  // Import the cart routes
+import cartrouter from './Routes/cartroutes.js';  // Import the cart routes
 import router from './Routes/Routes.js';
 import product from './Routes/Productroute.js';
 import employee from './Routes/Employeeroute.js';
 import user from './Routes/Userroute.js';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import payment from './Routes/Paymentroute.js';
 
 dotenv.config();
 
@@ -42,14 +41,13 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
-app.use('/user', userRouter);
-app.use('/product', productRouter);
-app.use('/orders', orderRouter); 
-app.use('/cart', cartRouter);  
-app.use('/user', router);
 app.use('/product', product);
+app.use('/orders', orderRouter); 
+app.use('/cart', cartrouter);  
+app.use('/user', router);
 app.use('/employee',employee)
 app.use('/userprofile',user)
+app.use('/payment',payment)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
