@@ -67,12 +67,9 @@ const Cartorder= () => {
 
     console.log({responses});
     
-  
-    
-
-     
 
     alert('Order placed successfully!');
+    navigate('/index');
   };
   
 

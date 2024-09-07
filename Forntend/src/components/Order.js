@@ -35,7 +35,12 @@ const Orders = () => {
 
   return (
     <div className="order-history-container">
-      {orders.map(order => (
+      <h2>Your Order History</h2>
+      {orders.length === 0 ? (
+        <h4>Your don't have any orders.Please order something..</h4>
+      ) : (
+        
+      orders.map(order => (
         <div className="order-box" key={order._id}>
           <div className="order-info">
             <img src={order.items[0].image} alt={order.name} className="order-image"/>
@@ -52,7 +57,9 @@ const Orders = () => {
             <button className="cancel-button" onClick={() => cancelOrder(order._id)}>Cancel Order</button>
           </div>
         </div>
-      ))}
+      ))
+      )}
+      
     </div>
   );
 };

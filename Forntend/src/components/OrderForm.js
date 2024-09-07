@@ -68,7 +68,7 @@ const OrderForm = () => {
       const response = await axios.post('http://localhost:5000/orders/place', formData);
       if (response.status === 201) {
         alert('Order placed successfully!');
-        navigate('/'); // Navigate to home page or any other desired route
+        navigate('/index'); // Navigate to home page or any other desired route
       } else {
         alert('Failed to place order.');
       }
