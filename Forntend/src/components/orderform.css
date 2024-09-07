@@ -1,6 +1,6 @@
 /* Main container for payment and billing */
 .payment-billing-wrapper {
-  padding: 20px;
+  padding: 10px;
   font-family: 'Roboto', sans-serif;
   background-color: #f5f5f5;
   min-height: 100vh;
@@ -23,17 +23,13 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 
 /* Billing details section */
 .billing-section, .order-summary-section {
   flex: 1;
   margin: 10px;
-  background-color: #D9E6DB;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: auto;
 }
 
@@ -63,6 +59,7 @@
   margin-bottom: 20px;
   border-bottom: 2px solid black;
   padding-bottom: 10px;
+  
 }
 
 .order-item-wrapper img {

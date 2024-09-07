@@ -137,6 +137,7 @@ const Cartorder= () => {
 
         <div className="order-summary-section">
           <h3>Cart Summary</h3>
+          <div className='order-sum'>
           <div className="order-items-wrapper">
             {cartItems.map((item) => (
               <div key={item._id} className="order-item-wrapper">
@@ -150,6 +151,8 @@ const Cartorder= () => {
               </div>
             ))}
           </div>
+          </div>
+          
           <p className="total-value">
             <strong>Total:</strong> Rs. {cartItems.reduce((acc, item) => acc + item.items.totalPrice, 0)}.00
           </p>
@@ -194,7 +197,7 @@ const Cartorder= () => {
         </div>
       </div>
     </div>
-  );
-};
+  );}
+;
 
 export default Cartorder;
