@@ -1,0 +1,86 @@
+/* Similar styling as previous component */
+
+/* Main container for payment and billing */
+.payment-billing-wrapper {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  /* Heading for the payment and billing section */
+  .payment-billing-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  /* Container for billing details and order summary */
+  .content-wrapper {
+    display: flex;
+    gap: 0px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Billing details section */
+  .billing-section, .order-summary-section {
+    flex: 1;
+    margin: 10px;
+    background-color: #D9E6DB;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: auto;
+  }
+  
+  /* Input fields in the billing form */
+  .billing-section form input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  /* Order items section */
+  .order-item-wrapper {
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+  }
+  
+  .order-details-text {
+    line-height: 1.5;
+  }
+  
+  /* Total value styling */
+  .total-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  /* Pay Now button styling */
+  .placeorder-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #073f0c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .placeorder-button:hover {
+    background-color: #032b10;
+  }
+  

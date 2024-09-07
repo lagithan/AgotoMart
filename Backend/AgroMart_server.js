@@ -43,8 +43,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // Routes
 app.use('/user', userRouter);
 app.use('/product', productRouter);
-app.use('/orders', orderRouter); // Add the order routes
-app.use('/cart', cartRouter);  // Add the cart routes
+app.use('/orders', orderRouter); 
+app.use('/cart', cartRouter);  
 app.use('/user', router);
 app.use('/product', product);
 app.use('/employee',employee)

@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from './Userdata';
 
-const Orderdes = ({ item, setselectitem, userId }) => {
-  const { isregistered } = useContext(UserContext);
+const Orderdes = ({ item, setselectitem}) => {
+  const { user_data,isregistered } = useContext(UserContext);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
 
@@ -20,16 +20,23 @@ const Orderdes = ({ item, setselectitem, userId }) => {
   };
 
   const handleAddToCart = async () => {
+
+    let userId=user_data.id;
+    
     try {
+      const updatedItem = { ...item, quantity: Number(quantity),totalamount:item.price * quantity, };
+      setselectitem(updatedItem);
+      console.log(updatedItem);
       await axios.post('http://localhost:5000/cart/add', {
         userId,
-        item: { ...item, quantity: Number(quantity) },
+        item: updatedItem
       });
-      alert('Item added to cart');
+      alert("Item added to cart");
     } catch (error) {
       console.error('Failed to add item to cart:', error);
     }
   };
+  
 
   const handleBuyNow = () => {
     if (isregistered) {
