@@ -5,16 +5,24 @@ import { UserContext } from "./Userdata";
 
 const Overview = ({ details = {} }) => {
   const { user_data } = useContext(UserContext);
+  console.log(user_data.phonenumber);
+  
   const [formData, setFormData] = useState({
-    Name: "",
-    Email: "",
-    PhoneNo: "",
+    Name: user_data.name,
+    Email: user_data.email,
+    PhoneNo: user_data.phonenumber,
+  });
+
+  const [savedaddress, setSavedAddress] = useState({
+    addressLine1: "",
+    addressLine2: "",
+    addressLine3: ""
   });
 
   const [addressData, setAddressData] = useState({
-    addressLine1: "",
-    addressLine2: "",
-    addressLine3: "",
+    addressLine1: savedaddress.addressLine1,
+    addressLine2: savedaddress.addressLine2,
+    addressLine3: savedaddress.addressLine3,
   });
 
   const [savedDetails, setSavedDetails] = useState({
@@ -53,7 +61,6 @@ const Overview = ({ details = {} }) => {
           `http://localhost:5000/userprofile/delete/${user_data.id}`
         );
         alert("Your account has been deleted successfully.");
-        // Optionally, redirect to login or homepage
         window.location.href = "/login"; // Adjust the URL as needed
       } catch (error) {
         console.error("Error deleting account", error);
@@ -71,7 +78,7 @@ const Overview = ({ details = {} }) => {
     validateField(name, value);
   };
 
-  const handleAddressChange = async (e) => {
+  const handleAddressChange = (e) => {
     const { name, value } = e.target;
     setAddressData((prevData) => ({
       ...prevData,
@@ -118,8 +125,7 @@ const Overview = ({ details = {} }) => {
           }
         );
 
-        // Update savedDetails after successful save
-        setSavedDetails(formData);
+        setSavedDetails(formData); // Update savedDetails after successful save
         console.log("Updated details successfully");
       } catch (error) {
         console.error("Error updating details", error);
@@ -130,24 +136,36 @@ const Overview = ({ details = {} }) => {
   };
 
   const handleAddressSave = async () => {
-    const isValid =
-      Object.values(Errors).every((Error) => Error === "") &&
-      addressData.addressLine1;
-    if (!isValid) {
-      alert("Please fix the Errors before saving.");
-      return; // Exit if validation fails
-    }
+    
     try {
       await axios.post("http://localhost:5000/userprofile/createaddress", {
         userid: user_data.id,
         addressData,
       });
     } catch (error) {
-      alert(`Failed to save addresses: ${error}`);
+      alert('User can save one address only ');
     } finally {
       setEditAddress(false);
     }
   };
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/userprofile/getaddress/${user_data.id}`
+        );
+
+        const address=response.data
+        setSavedAddress({...savedaddress,addressLine1:address.address1,addressLine2:address.address2,addressLine3:address.address3});
+        console.log(savedaddress);
+      } catch (error) {
+        console.error("Error occurred while fetching address", error);
+      }
+    };
+
+    fetchAddress();
+  }, ['']);
 
   return (
     <div className="userprofile">
@@ -159,12 +177,12 @@ const Overview = ({ details = {} }) => {
           <br />
           <span>Email: {savedDetails.Email}</span>
           <br />
-          <span>Mobile/ Phone: {savedDetails.PhoneNo}</span>
+          <span>Mobile/Phone: {savedDetails.PhoneNo}</span>
           <br />
           <span>
-            Address: {addressData.addressLine1 || "N/A"},{" "}
-            {addressData.addressLine2 || "N/A"},{" "}
-            {addressData.addressLine3 || "N/A"}
+            Address: {savedaddress.addressLine1 || "N/A"},{" "}
+            {savedaddress.addressLine2 || "N/A"},{" "}
+            {savedaddress.addressLine3 || "N/A"}
           </span>
           <br />
         </div>
@@ -277,7 +295,7 @@ const Overview = ({ details = {} }) => {
               <div className="form">
                 <div className="form-group">
                   <label htmlFor="addressLine1">
-                    Address Line 1<span>*</span>
+                    Street No <span></span>
                   </label>
                   <input
                     type="text"
@@ -293,25 +311,33 @@ const Overview = ({ details = {} }) => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="addressLine2">Address Line 2</label>
+                  <label htmlFor="addressLine2">Street name</label>
                   <input
                     type="text"
                     name="addressLine2"
                     id="addressLine2"
                     value={addressData.addressLine2}
                     onChange={handleAddressChange}
+                    className={Errors.addressLine2 ? "Error" : ""}
                   />
+                  {Errors.addressLine2 && (
+                    <p className="Error-message1">{Errors.addressLine2}</p>
+                  )}
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="addressLine3">Address Line 3</label>
+                  <label htmlFor="addressLine3">District</label>
                   <input
                     type="text"
                     name="addressLine3"
                     id="addressLine3"
                     value={addressData.addressLine3}
                     onChange={handleAddressChange}
+                    className={Errors.addressLine3 ? "Error" : ""}
                   />
+                  {Errors.addressLine3 && (
+                    <p className="Error-message1">{Errors.addressLine3}</p>
+                  )}
                 </div>
 
                 <button className="mainbutton2" onClick={handleAddressSave}>

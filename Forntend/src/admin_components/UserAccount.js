@@ -1,37 +1,65 @@
-import React, { useState } from 'react';
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import React, { useState, useEffect } from 'react';
 import './UserSearch.css';
+import axios from 'axios';
 
 const UserAccount = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([
-    { id: 1, fullName: 'John Doe', phone: '123-456-7890', email: 'john@example.com' },
-    { id: 2, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 3, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 4, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 5, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 6, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 7, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 8, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 9, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 10, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-    { id: 11, fullName: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' }
-  ]);
-  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  const fetchuser = async () => {
+    try {
+      const userResponse = await axios.get("http://localhost:5000/userprofile/getuser");
+      const userData = userResponse.data;
+      
+      // Fetch addresses for each user
+      const userdetails = await Promise.all(
+        userData.map(async user => {
+          try {
+            const addressResponse = await axios.get( `http://localhost:5000/userprofile/getaddress/${user._id}`);
+
+            if(addressResponse){
+            const addressdata=addressResponse.data
+            const fullAddress = [
+              addressdata.address1,
+              addressdata.address2,
+              addressdata.address3
+            ].filter(Boolean).join(', ');
+
+            return {
+              ...user,
+              address: fullAddress
+            };}
+
+          } catch (error) {
+            return {
+              ...user,
+              address: "No address added"
+            };
+          }
+        })
+      );
+      setUsers(userdetails);
+      setFilteredUsers(userdetails);
+    } catch (error) {
+      console.error("Error occurred during fetching user data:", error);
+    }
+  };
+  
+
+  useEffect(() => {
+    fetchuser();
+  }, []);
 
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
     const lowercasedQuery = e.target.value.toLowerCase();
+    setSearchQuery(lowercasedQuery);
     setFilteredUsers(users.filter(user =>
-      user.fullName.toLowerCase().includes(lowercasedQuery) ||
-      user.phone.includes(lowercasedQuery) ||
-      user.email.toLowerCase().includes(lowercasedQuery)
+      user.username.toLowerCase().includes(lowercasedQuery) ||
+      (user.phonenumber && user.phonenumber.includes(lowercasedQuery)) ||
+      user.email.toLowerCase().includes(lowercasedQuery) ||
+      user.role.toLowerCase().includes(lowercasedQuery)
     ));
-  };
-
-  const handleDelete = (id) => {
-    setUsers(users.filter(user => user.id !== id));
-    setFilteredUsers(filteredUsers.filter(user => user.id !== id));
   };
 
   return (
@@ -46,29 +74,27 @@ const UserAccount = () => {
           className="search-input"
         />
       </div>
-      
+
       <div className='table-container'>
         <table className="user-table">
           <thead>
             <tr>
-              <th>Full Name</th>
+              <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
-              <th>Actions</th>
+              <th>Role</th>
+              <th>Address</th>
             </tr>
           </thead>
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map(user => (
-                <tr key={user.id}>
-                  <td>{user.fullName}</td>
-                  <td>{user.phone}</td>
+                <tr key={user._id}>
+                  <td>{user.username}</td>
+                  <td>{user.phonenumber ? user.phonenumber : "No phone number entered"}</td>
                   <td>{user.email}</td>
-                  <td className="action-buttons">
-                    <button className="delete-button1" onClick={() => handleDelete(user.id)}>
-                      <RiDeleteBin6Fill className='icon' /> Delete
-                    </button>
-                  </td>
+                  <td>{user.role}</td>
+                  <td>{user.address}</td>
                 </tr>
               ))
             ) : (

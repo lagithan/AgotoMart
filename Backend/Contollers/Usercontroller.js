@@ -1,11 +1,22 @@
 import User from "../Models/Usermodel.js";
 import address from "../Models/addressmodel.js";
 
+
+const getuser = async(req,res) =>{
+  try{
+    const result = await User.find();
+    res.status(201).json(result);
+  }
+
+  catch(error){
+    res.status(400);
+  }
+}
+
 const updateUser = async (req, res) => {
   const id = req.params.id;
   console.log(`Updating user with ID: ${id}`);
 
-  // Extracting data from the request body
   const { username, email, phonenumber } = req.body;
 
   try {
@@ -83,4 +94,15 @@ const deleteuser = async (req, res) => {
   }
 };
 
-export { updateUser, createaddress, deleteuser };
+const getaddress =async (req,res)=>{
+  try{
+    const result = await address.findOne({userid:req.params.id})
+    res.status(201).json(result)
+  }
+
+  catch(error){
+    res.status(400)
+  }
+}
+
+export { updateUser, createaddress, deleteuser,getaddress,getuser };

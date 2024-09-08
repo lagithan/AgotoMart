@@ -16,7 +16,7 @@ export const Signup = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Signup Error:", error); // Debugging line
+    console.error("Signup Error:", error); 
     res.status(400).json({ error: "Username or email already taken" });
   }
 };
@@ -32,7 +32,7 @@ export const Login = async (req, res) => {
 
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email" });
     }
 
     console.log("Password provided:", password);
@@ -41,7 +41,7 @@ export const Login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     console.log(isMatch);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid password" });
     }
 
     res.status(200).json({

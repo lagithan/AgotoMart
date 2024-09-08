@@ -96,6 +96,7 @@ const Login = ({setform,form}) => {
           name: userdata.name,
           email: userdata.email,
           role: userdata.role,
+          phonenumber:userdata.phonenumber
         });
       };
 
