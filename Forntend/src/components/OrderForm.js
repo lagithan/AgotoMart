@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const OrderForm = () => {
   const location = useLocation();
   const { selectedItem } = location.state || {};
-  const { user_data } = useContext(UserContext);
+  const { user_data,isregistered } = useContext(UserContext);
   const [address, setaddress] = useState([]);
   const navigate = useNavigate();
 
@@ -88,8 +88,9 @@ const OrderForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
 
+    if(isregistered){
+    e.preventDefault();
     if (!formData.termsAccepted) {
       alert('Please accept the terms and conditions to proceed.');
       return;
@@ -110,6 +111,11 @@ const OrderForm = () => {
     } else if (formData.paymentMethod === "payhere") {
       const totalprice = formData.items[0].totalPrice;
       navigate('/paymentform', { state: { totalprice, formdata: formData } });
+    }}
+
+    else{
+      alert("Login your account first");
+      navigate('/login')
     }
   };
 

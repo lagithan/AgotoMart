@@ -6,6 +6,7 @@ export const Signup = async (req, res) => {
     const { name, email, password } = req.body;
     const newuser = await User.createUser(name, email, password);
     console.log("New User Created:", newuser);
+
     res.status(201).json({
       message: "User registered successfully",
       userdata: {
@@ -44,6 +45,7 @@ export const Login = async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
+
     res.status(200).json({
       userdata: {
         id: user._id,
@@ -53,6 +55,7 @@ export const Login = async (req, res) => {
         phonenumber: user.phonenumber,
       },
     });
+
   } catch (err) {
     console.error("Login Error:", err.message);
     res.status(500).send("Server error");

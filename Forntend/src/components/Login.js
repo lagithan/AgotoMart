@@ -23,7 +23,7 @@ const Loginform = () => {
     <div className='body1'>
     <div className='login-container'>
       <NavLink to="/">
-      <i class="fa-solid fa-arrow-left arrow"/>
+      <i className="fa-solid fa-arrow-left arrow"/>
         </NavLink>
       {form ? <Login setform={setform} form={form}/> : <Signup setform={setform}  form={form}/>}
       </div>

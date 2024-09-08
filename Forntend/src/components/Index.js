@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
+import React, { useState, useContext, useEffect} from "react";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Home";
 import Order from "./Order";
 import Addcard from "./Addcard";
@@ -17,7 +17,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import AddCardIcon from "@mui/icons-material/AddCard";
-import EditIcon from "@mui/icons-material/Edit";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Footer from "./Footer";
@@ -25,7 +24,8 @@ import logo from "../Assets/logo.png";
 import "./home.css";
 import { UserContext } from "./Userdata";
 import UserProfile from "./Overview.js";
-import { BiSolidUserAccount } from "react-icons/bi";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import axios from 'axios';
 
 const Index = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -47,7 +47,7 @@ const Index = () => {
               <Route path="add-payment-method" element={<AddPaymentMethod />} />
               <Route path="saved" element={<Saved />} />
               <Route path="cart" element={<Cart />} />
-              <Route path="update" element={<Update />} />
+              <Route path="update/:id" element={<Update />} />
             </Routes>
           </div>
         </div>
@@ -113,10 +113,38 @@ const Navbar = ({ sidebar, setSidebar }) => {
 
 const Sidebar = ({ sidebar, setSidebar }) => {
   const { user_data, isregistered } = useContext(UserContext);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const location = useLocation();
   const toggleSidebar = () => {
     setSidebar((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    const fetchPaymentMethods = async () => {
+        try {
+            const response = await axios.get(`http://localhost:4000/payment/get/${user_data.id}`);
+            setPaymentMethods(response.data);
+        } catch (error) {
+            console.error('Error fetching payment methods:', error);
+        }
+    };
+
+    fetchPaymentMethods();
+}, [user_data.id]);
+
+useEffect(() => {
+  if (location.pathname === '/index/saved') {
+    setPaymentMethods(prevState => {
+      if (prevState.length === 0) {
+        return [{ /* your dummy payment method data here */ }];
+      }
+      return prevState;
+    });
+  }
+}, [location.pathname]);
+
+const linkTo = paymentMethods.length !== 0 ? '/index/saved' : '/index/addcard' ;
+console.log('Current :', paymentMethods.length);
   return (
     <div className={`sidebar1 ${!sidebar ? "hidden" : ""}`}>
       <div className="side1-header">
@@ -149,13 +177,16 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         </NavLink>
 
         <NavLink
-          to="/index/user"
+          to={isregistered  ? "/index/user" : "/login"}
           className={({ isActive }) =>
             isActive ? "icon-card active" : "icon-card"
           }
           style={{ textDecoration: "none" }}
         >
-          <BiSolidUserAccount className="icon" />
+          <AccountBoxIcon sx={{ fontSize: "30px" }} className={({ isActive }) =>
+            isActive ? "icon-card active" : "icon-card"
+          }
+          style={{ textDecoration: "none" }} />
           <span>Profile</span>
         </NavLink>
 
@@ -171,7 +202,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         </NavLink>
 
         <NavLink
-          to="/index/cart"
+          to={isregistered  ? "/index/cart" : "/login"}
           className={({ isActive }) =>
             isActive ? "icon-card active" : "icon-card"
           }
@@ -182,7 +213,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         </NavLink>
 
         <NavLink
-          to="/index/orders"
+          to={isregistered  ? "/index/orders" : "/login"}
           className={({ isActive }) =>
             isActive ? "icon-card active" : "icon-card"
           }
@@ -193,15 +224,16 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         </NavLink>
 
         <NavLink
-          to="/index/addcard"
+          to={isregistered  ? linkTo : "/login"}
           className={({ isActive }) =>
             isActive ? "icon-card active" : "icon-card"
           }
           style={{ textDecoration: "none" }}
         >
           <AddCardIcon sx={{ fontSize: "30px" }} />
-          <span>Add card</span>
+          <span>My Cards</span>
         </NavLink>
+        
 
         <NavLink
           to="/index/contactus"

@@ -141,7 +141,12 @@ const Imageslider = () => {
             <div className="slider">
                 <div
                     className="slider-wrapper"
-                    style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+                    style={{
+                        transform: `translateX(-${currentIndex * 100}%)`,
+                        transition: 'all 1.5s ease',
+                        opacity: '1'
+                      }}
+                      
                 >
                     {images.map((image, index) => (
                         <div className="slide" key={index}>

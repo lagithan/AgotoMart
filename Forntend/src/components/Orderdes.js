@@ -21,8 +21,8 @@ const Orderdes = ({ item, setselectitem}) => {
 
   const handleAddToCart = async () => {
 
+    if(isregistered){
     let userId=user_data.id;
-    
     try {
       const updatedItem = { ...item, quantity: Number(quantity),totalamount:item.price * quantity, };
       setselectitem(updatedItem);
@@ -31,9 +31,14 @@ const Orderdes = ({ item, setselectitem}) => {
         userId,
         item: updatedItem
       });
-      alert("Item added to cart");
     } catch (error) {
       console.error('Failed to add item to cart:', error);
+    }
+    setselectitem({})}
+
+    else{
+      alert("Login your account first");
+      navigate('/login')
     }
   };
   
@@ -50,6 +55,8 @@ const Orderdes = ({ item, setselectitem}) => {
       });
     } else {
       alert("Login your account first");
+      navigate('/login')
+      
     }
   };
 

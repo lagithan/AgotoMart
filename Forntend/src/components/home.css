@@ -348,26 +348,23 @@
     overflow: hidden;
     width: 100vw;
     height:620px;
-    flex-direction: row;
-    transition: all 0.8s ease-in-out;
-}
+    flex-direction: row;}
 
 .slider {
     display: flex;
     overflow: hidden;
     flex-direction: row;
-    transition: all 0.8s ease-in-out;
 }
 
 .slider-wrapper {
     display: flex;
-    transition: all 1s ease-in-out;
+    transition: all 1.5s ease;
     flex-direction: row;
+    opacity: 0;
 }
 
 .slide {
     min-width: 100%;
-    transition: all 0.8s ease-in-out;
 }
 
 .slide img {
