@@ -83,11 +83,15 @@
     border-bottom: 2px solid rgba(222, 217, 217, 0.671);
     font-size: 14px;
   }
-  
+
   .product-table th {
     background-color: #084707;
     color: white;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Inter';
   }
+  
   
   .action-buttons {
     display: flex;

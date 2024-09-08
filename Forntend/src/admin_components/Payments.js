@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './payments.css'; // Assuming you'll have a CSS file for styling
+import React, { useState, useEffect} from 'react';
+import './payments.css';
+import axios from 'axios';
 
 const Payments = () => {
   const [paymentRecords, setPaymentRecords] = useState([]);
 
   useEffect(() => {
-    // Example: Fetching payment records from a source (could be an API or local storage)
-    const fetchedPaymentRecords = [
-      { id: 1, cardNumber: '**** **** 4567', name: 'Siva', expiryDate: '05/27', amount: '$100', date: '2023-08-23' },
-      { id: 2, cardNumber: '**** **** 1234', name: 'Labour', expiryDate: '04/24', amount: '$200', date: '2023-08-22' },
-      // Add more payment records as needed
-    ];
-    setPaymentRecords(fetchedPaymentRecords);
+    const fetchPaymentData = async () => {
+      try {
+        const paymetdata = await axios.get(`http://localhost:5000/payment/getpayment`);
+        setPaymentRecords(paymetdata.data); 
+      } catch (error) {
+        console.log("Error occurred while fetching payment records", error);
+      }
+    };
+    fetchPaymentData();
   }, []);
 
   return (
@@ -23,20 +26,18 @@ const Payments = () => {
             <th>Payment ID</th>
             <th>Card Number</th>
             <th>Name</th>
-            <th>Expiry Date</th>
             <th>Amount Paid</th>
             <th>Date of Payment</th>
           </tr>
         </thead>
         <tbody>
           {paymentRecords.map((record) => (
-            <tr key={record.id}>
-              <td>{record.id}</td>
-              <td>{record.cardNumber}</td>
-              <td>{record.name}</td>
-              <td>{record.expiryDate}</td>
-              <td>{record.amount}</td>
-              <td>{record.date}</td>
+            <tr key={record._id}>
+              <td>{record._id}</td>
+              <td>**** ****{record.cardnumber % 10000}</td>
+              <td>{record.cardname}</td>
+              <td>{record.totalamount}</td>
+              <td>{new Date(record.createdAt).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>

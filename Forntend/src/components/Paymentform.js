@@ -14,8 +14,8 @@ const PaymentForm = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState({
-    cardName: '',
-    cardNumber: '',
+    cardname: '',
+    cardnumber: '',
     expiryDate: '',
     cvv: ''
   });
@@ -55,6 +55,19 @@ const PaymentForm = () => {
       }
     }
   };
+
+  const addpayment = async (carddata)=>{
+     try{
+      const response = await axios.post('http://localhost:5000/payment/adddetails',carddata);
+      if (response.status === 201) {
+      }
+     }
+
+     catch(error){
+      console.error('Error placing order:', error);
+      alert('An error occurred. Please try again.');
+     }
+  }
   
 
   useEffect(() => {
@@ -82,8 +95,9 @@ const PaymentForm = () => {
   };
 
   const handlePay = async () => {
+    const carddata ={...paymentDetails,userid:user_data.id,totalamount:totalprice}
+    addpayment(carddata);
     handlepayment();
-    
   };
 
   const closePopup = () => {
@@ -92,10 +106,10 @@ const PaymentForm = () => {
 
   const selectCard = async (card) => {
     setSelectedCard(card);
+    const paymenttdata ={...paymentDetails,cardname:card.cardName,cardnumber:card.cardNumber,userid:user_data.id,totalamount:totalprice}
+    addpayment(paymenttdata);
     setShowPopup(false);
-    console.log(card);
     handlepayment();
-    
   };
 
   return (
@@ -125,8 +139,8 @@ const PaymentForm = () => {
               <input
                 type="text"
                 id="cardholder-name"
-                name="cardName"
-                value={paymentDetails.cardName}
+                name="cardname"
+                value={paymentDetails.cardname}
                 onChange={handleChange}
                 placeholder="Enter your name"
               />
@@ -136,8 +150,8 @@ const PaymentForm = () => {
               <input
                 type="text"
                 id="card-number"
-                name="cardNumber"
-                value={paymentDetails.cardNumber}
+                name="cardnumber"
+                value={paymentDetails.cardnumber}
                 onChange={handleChange}
                 placeholder="1234 5678 9012 3456"
               />
