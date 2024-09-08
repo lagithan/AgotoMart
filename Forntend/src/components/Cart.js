@@ -61,7 +61,7 @@ const CartPage = () => {
             ))}
           </ul>
           <button className="checkout-button" onClick={handleProceedToCheckout}>
-            Checkout
+            Proceed to Checkout
           </button>
         </>
       )}
