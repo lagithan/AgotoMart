@@ -9,6 +9,7 @@ const Cartorder= () => {
   const { state } = useLocation();
   const { user_data } = useContext(UserContext);
   const { cartItems } = state; 
+  const [dataset,setdataset] = useState([]);
   const navigate = useNavigate();
   
   const [userDetails, setUserDetails] = useState({
@@ -42,7 +43,8 @@ const Cartorder= () => {
       return;
     }
 
-    const promises = cartItems.map((item)=>new Promise(async (resolve,reject)=>{
+    if(userDetails.paymentMethod === "cashOnDelivery"){
+    const dataset = cartItems.map((item)=>new Promise(async (resolve,reject)=>{
         try {
             const data = {...userDetails,items: [
                 {
@@ -53,20 +55,42 @@ const Cartorder= () => {
                   totalPrice: item.items.totalPrice,
                 }
               ],}
-            console.log(data);
-            
             const response = await axios.post('http://localhost:5000/orders/place',data );
-            resolve(response)
+
           } catch (error) {
             console.log(error);
             reject(error)
           }
     }))
+    setdataset(dataset)
+  }
 
-    const responses = await Promise.all(promises)
+  else if (userDetails.paymentMethod === "payhere"){
+    const totalprice = cartItems.reduce((acc, item) => acc + item.items.totalPrice, 0)
 
-    console.log({responses});
-    alert('Order placed successfully!');
+    const dataset = cartItems.map((item) => {
+      const data = {
+        ...userDetails,
+        items: [
+          {
+            name: item.items.name,
+            image: item.items.image,
+            unitPrice: item.items.unitPrice,
+            quantity: item.items.quantity,
+            totalPrice: item.items.totalPrice,
+          }
+        ]
+      };
+      return data; 
+    });
+    setdataset(dataset);
+    console.log(dataset);
+    navigate('/paymentform',{state:{
+      formdata:dataset,
+      totalprice,
+    }});
+  }
+    
   };
   
 

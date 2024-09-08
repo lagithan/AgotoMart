@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './PaymentForm.css';
 import { useLocation,useNavigate } from 'react-router-dom';
+import { UserContext } from './Userdata';
 
 const PaymentForm = () => {
-  const { state } = useLocation();
+  const {user_data} = useContext(UserContext);
+  const location = useLocation();
+  const totalprice = location.state.totalprice;
+  const formdata = location.state.formdata;
   const navigate =useNavigate();
   const [cardData, setCardData] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -16,10 +20,47 @@ const PaymentForm = () => {
     cvv: ''
   });
 
+
+  const handlepayment = async () => {
+    console.log(formdata);
+    if (Array.isArray(formdata)) {
+      formdata.forEach(async (data) => {
+        try {
+          const response = await axios.post('http://localhost:5000/orders/place', {
+            ...data,
+            paymentMethod: "Paid"
+          });
+        } catch (error) {
+          console.error('Error placing order:', error);
+          alert('An error occurred. Please try again.');
+        }
+      });
+
+      alert('Order placed successfully!');
+      navigate('/index');
+    } else {
+      try {
+        const response = await axios.post('http://localhost:5000/orders/place', {
+          ...formdata,
+          paymentMethod: "Paid"
+        });
+  
+        if (response.status === 201) {
+          alert('Order placed successfully!');
+          navigate('/index');
+        }
+      } catch (error) {
+        console.error('Error placing order:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+  };
+  
+
   useEffect(() => {
     const fetchPaymentMethods = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/payment/get/${state.user_id}`);
+        const response = await axios.get(`http://localhost:5000/payment/get/${user_data.id}`);
         setCardData(response.data);
         if (response.data.length > 0) {
           setShowPopup(true);
@@ -30,7 +71,7 @@ const PaymentForm = () => {
     };
 
     fetchPaymentMethods();
-  }, [state.user_id]);
+  }, ['']);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,18 +82,8 @@ const PaymentForm = () => {
   };
 
   const handlePay = async () => {
-    try {
-      
-        const response = await axios.post('http://localhost:5000/orders/place', state);
-        if (response.status === 201) {
-          alert('Order placed successfully!');
-          navigate('/index'); 
-          alert('Failed to place order.');
-        }
-      } catch (error) {
-        console.error('Error placing order:', error);
-        alert('An error occurred. Please try again.');
-      }
+    handlepayment();
+    
   };
 
   const closePopup = () => {
@@ -63,18 +94,8 @@ const PaymentForm = () => {
     setSelectedCard(card);
     setShowPopup(false);
     console.log(card);
-
-    try {
-      
-        const response = await axios.post('http://localhost:5000/orders/place', {...state,paymentMethod:"Paid"});
-        if (response.status === 201) {
-          alert('Order placed successfully!');
-          navigate('/index'); 
-        }
-      } catch (error) {
-        console.error('Error placing order:', error);
-        alert('An error occurred. Please try again.');
-      }
+    handlepayment();
+    
   };
 
   return (
@@ -147,7 +168,7 @@ const PaymentForm = () => {
             </div>
             <div className="total-amount">
               <label>Total Amount:</label>
-              <span>Rs.{state.items[0].totalPrice}</span>
+              <span>Rs.{totalprice}</span>
             </div>
             <button type="button" className="pay-button" onClick={handlePay}>
               Pay Now

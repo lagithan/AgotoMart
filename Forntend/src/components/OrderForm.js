@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const OrderForm = () => {
   const location = useLocation();
   const { selectedItem } = location.state || {};
-  const { user_data } = useContext(UserContext);
+  const { user_data} = useContext(UserContext);
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -55,7 +55,8 @@ const OrderForm = () => {
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -71,7 +72,6 @@ const OrderForm = () => {
       if (response.status === 201) {
         alert('Order placed successfully!');
         navigate('/index'); 
-        alert('Failed to place order.');
       }
     } catch (error) {
       console.error('Error placing order:', error);
@@ -80,7 +80,8 @@ const OrderForm = () => {
   }
 
   else if (formData.paymentMethod === "payhere"){
-    navigate('/paymentform',{state:formData});
+    const totalprice=formData.items[0].totalPrice;
+    navigate('/paymentform', { state: { totalprice,formdata:formData } });
   }
 }
 

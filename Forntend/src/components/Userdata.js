@@ -12,9 +12,10 @@ export const UserProvider = ({ children }) => {
       });
       
     const [isregistered,setregister]=useState(false)
+    const [paid,setpaid]=useState(false)
 
     return (
-        <UserContext.Provider value={{ user_data, setuserdata,isregistered,setregister }}>
+        <UserContext.Provider value={{ user_data, setuserdata,isregistered,setregister,paid,setpaid }}>
             {children}
         </UserContext.Provider>
     );
