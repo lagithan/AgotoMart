@@ -121,7 +121,7 @@ const PaymentForm = () => {
           {cardData.map((card, index) => (
             <li key={index} className="card-item">
               <p>Cardholder Name: {card.cardName}</p>
-              <p>Card Number: **** **** **** {card.last4Digits}</p>
+              <p>Card Number: **** **** **** {card.cardnumber % 10000}</p>
               <p>Expiry: {card.expiryDate}</p>
               <button onClick={() => selectCard(card)} className="select-card-button">
                 Select Card

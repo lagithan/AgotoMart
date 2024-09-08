@@ -99,8 +99,13 @@ const OrderHistory = () => {
             {order.items.map((item, idx) => (
               <div key={idx} className="details-item">
                 <span>{item.name}</span>
+                <br></br>
                 <span>Qty: {item.quantity}</span>
-                <span>Rs. {item.unitPrice.toFixed(2)}</span>
+                <br></br>
+                <span>Unit Price:Rs. {item.unitPrice.toFixed(2)}</span>
+                <br></br>
+                <span>Payment status: {order.paymentMethod}</span>
+
               </div>
             ))}
             <div className="amount-total">Total: Rs. {order.totalAmount.toFixed(2)}</div>

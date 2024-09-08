@@ -64,3 +64,14 @@ ul {
   transform: scale(1.2);
   transition: all 0.7s ease;
 }
+
+.checkout-button {
+  background-color: #073f0c;
+margin-left: 980px;
+width: 200px;
+
+}
+
+.checkout-button:hover{
+  background-color: #087611;
+}

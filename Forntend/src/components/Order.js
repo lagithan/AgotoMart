@@ -46,6 +46,7 @@ const Orders = () => {
               <p className="order-text">Address: {order.address}</p>
               <p className="order-text">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
               <p className="order-text">Total: Rs. {order.items[0].totalPrice}</p>
+              <p className="order-text">Payment Status: {order.paymentMethod}</p>
             </div>
           </div>
           <div className="order-summary-container">

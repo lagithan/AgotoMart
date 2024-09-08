@@ -31,6 +31,8 @@
     flex: 1;
     margin: 10px;
     height: auto;
+    background-color: #c2dbc4;
+    border-radius: 8px;
   }
   
   /* Input fields in the billing form */
@@ -84,4 +86,32 @@
   .placeorder-button:hover {
     background-color: #032b10;
   }
+
+  
+  .payment-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .payment-options-wrapper div {
+    display: flex;
+    align-items: center; /* Aligns radio button and label on the same line */
+    gap: 10px;
+  }
+  
+  .payment-options-wrapper input[type="radio"] {
+    margin-right: 10px; /* Space between the radio button and label */
+    transform: translateY(-5px); /* Adjusts the vertical position slightly to center */
+  }
+  
+  .payment-options-wrapper label {
+    font-size: 1em;
+    color: #333;
+  }
+  
+  
+  
+  
   

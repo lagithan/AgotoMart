@@ -56,6 +56,8 @@ const Cartorder= () => {
                 }
               ],}
             const response = await axios.post('http://localhost:5000/orders/place',data );
+            alert("Order placed successfully");
+            navigate('/index');
 
           } catch (error) {
             console.log(error);
