@@ -1,4 +1,4 @@
-import React, { useState,useContext} from 'react';
+import React, { useState,useContext,useEffect} from 'react';
 import { useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './cartorder.css';
@@ -8,21 +8,51 @@ import { UserContext } from './Userdata';
 const Cartorder= () => {
   const { state } = useLocation();
   const { user_data } = useContext(UserContext);
+  const [address, setaddress] = useState([]);
   const { cartItems } = state; 
   const [dataset,setdataset] = useState([]);
   const navigate = useNavigate();
+
+  const fetchaddress = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/userprofile/getaddress/${user_data.id}`);
+      const addressdata = response.data;
+
+      const fullAddress = [
+        addressdata.address1,
+        addressdata.address2,
+      ].filter(Boolean).join(', ');
+
+      setaddress([fullAddress, addressdata.address3]);
+    } catch (error) {
+      console.error("Error occurred");
+    }
+  };
+
+  useEffect(() => {
+    fetchaddress();
+  }, []);
   
   const [userDetails, setUserDetails] = useState({
     user_id: user_data.id,
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
+    Name: user_data.name,
+    phoneNumber: user_data.phonenumber || '',
     district: '',
-    address: '',
+    addressLine: '',
     paymentMethod: '',
     termsAccepted: false,
     
   });
+
+  useEffect(() => {
+    if (address.length > 0) {
+      setUserDetails((prevData) => ({
+        ...prevData,
+        district: String(address[1]) || '',
+        addressLine: String(address[0]) || '',
+      }));
+    }
+  }, [address]);
  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -110,17 +140,8 @@ const Cartorder= () => {
             <input
               type="text"
               name="firstName"
-              placeholder="Enter your first name"
-              value={userDetails.firstName}
-              onChange={handleChange}
-              required
-            />
-            <p>Last Name</p>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Enter your last name"
-              value={userDetails.lastName}
+              placeholder="Enter your name"
+              value={userDetails.Name}
               onChange={handleChange}
               required
             />
@@ -147,7 +168,7 @@ const Cartorder= () => {
               type="text"
               name="address"
               placeholder="Enter your address"
-              value={userDetails.address}
+              value={userDetails.addressLine}
               onChange={handleChange}
               required
             />

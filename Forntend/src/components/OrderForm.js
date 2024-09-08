@@ -8,28 +8,59 @@ import { useNavigate } from 'react-router-dom';
 const OrderForm = () => {
   const location = useLocation();
   const { selectedItem } = location.state || {};
-  const { user_data} = useContext(UserContext);
+  const { user_data } = useContext(UserContext);
+  const [address, setaddress] = useState([]);
   const navigate = useNavigate();
-  
+
+  const fetchaddress = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/userprofile/getaddress/${user_data.id}`);
+      const addressdata = response.data;
+
+      const fullAddress = [
+        addressdata.address1,
+        addressdata.address2,
+      ].filter(Boolean).join(', ');
+
+      setaddress([fullAddress, addressdata.address3]);
+    } catch (error) {
+      console.error("Error occurred");
+    }
+  };
+
+  useEffect(() => {
+    fetchaddress();
+  }, []);
+
+  // Initial form data
   const [formData, setFormData] = useState({
     user_id: user_data.id,
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
+    Name: user_data.name,
+    phoneNumber: user_data.phonenumber || '',
     district: '',
-    address: '',
+    addressLine: '',
     paymentMethod: '',
     termsAccepted: false,
     items: [
       {
         name: selectedItem?.name || '',
-        image: selectedItem?.image.url,
+        image: selectedItem?.image.url || '',
         unitPrice: selectedItem?.price || 0,
         quantity: selectedItem?.quantity || 0,
         totalPrice: (selectedItem?.price || 0) * (selectedItem?.quantity || 0),
       }
     ],
   });
+    //because this works asynchronusly
+  useEffect(() => {
+    if (address.length > 0) {
+      setFormData((prevData) => ({
+        ...prevData,
+        district: String(address[1]) || '',
+        addressLine: String(address[0]) || '',
+      }));
+    }
+  }, [address]);
 
   useEffect(() => {
     if (selectedItem) {
@@ -55,8 +86,7 @@ const OrderForm = () => {
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
-  
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -65,25 +95,23 @@ const OrderForm = () => {
       return;
     }
 
-    if(formData.paymentMethod === "cashOnDelivery"){
-    try {
-      
-      const response = await axios.post('http://localhost:5000/orders/place', formData);
-      if (response.status === 201) {
-        alert('Order placed successfully!');
-        navigate('/index'); 
+    if (formData.paymentMethod === "cashOnDelivery") {
+      try {
+        console.log(formData)
+        const response = await axios.post('http://localhost:5000/orders/place', formData);
+        if (response.status === 201) {
+          alert('Order placed successfully!');
+          navigate('/index');
+        }
+      } catch (error) {
+        console.error('Error placing order:', error);
+        alert('An error occurred. Please try again.');
       }
-    } catch (error) {
-      console.error('Error placing order:', error);
-      alert('An error occurred. Please try again.');
+    } else if (formData.paymentMethod === "payhere") {
+      const totalprice = formData.items[0].totalPrice;
+      navigate('/paymentform', { state: { totalprice, formdata: formData } });
     }
-  }
-
-  else if (formData.paymentMethod === "payhere"){
-    const totalprice=formData.items[0].totalPrice;
-    navigate('/paymentform', { state: { totalprice,formdata:formData } });
-  }
-}
+  };
 
   return (
     <div className="payment-billing-wrapper">
@@ -92,21 +120,12 @@ const OrderForm = () => {
         <div className="billing-section">
           <h3>Billing Details</h3>
           <form onSubmit={handleSubmit}>
-            <p>First Name</p>
+            <p>Name</p>
             <input
               type="text"
               name="firstName"
-              placeholder="Enter your first name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-            <p>Last Name</p>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Enter your last name"
-              value={formData.lastName}
+              placeholder="Enter your name"
+              value={formData.Name}
               onChange={handleChange}
               required
             />
@@ -131,9 +150,9 @@ const OrderForm = () => {
             <p>Your Address</p>
             <input
               type="text"
-              name="address"
+              name="addressLine"
               placeholder="Enter your address"
-              value={formData.address}
+              value={formData.addressLine}
               onChange={handleChange}
               required
             />
@@ -178,7 +197,7 @@ const OrderForm = () => {
               <label htmlFor="cashOnDelivery">Cash on Delivery</label>
             </div>
           </div>
-          
+
           <div className="terms-checkbox-wrapper">
             <input
               type="checkbox"
@@ -187,7 +206,7 @@ const OrderForm = () => {
               onChange={handleChange}
             />
             <label>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
-            Accept terms and conditions</label>
+              Accept terms and conditions</label>
           </div>
           <button className="pay-now-button" onClick={handleSubmit}>Place Order</button>
         </div>

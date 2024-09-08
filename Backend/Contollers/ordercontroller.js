@@ -5,12 +5,8 @@ const placeOrder = async (req, res) => {
     // Log the entire request body to see what is being sent
     console.log('Request Body:', req.body);
 
-    const { user_id, firstName, lastName, phoneNumber, district, address, paymentMethod, items } = req.body;
+    const { user_id, Name,phoneNumber, district, addressLine, paymentMethod, items } = req.body;
 
-    // Log individual fields to check if they are being received correctly
-    console.log('User ID:', user_id);
-    console.log('First Name:', firstName);
-    console.log('Items:', items);
 
     // If user_id is undefined or missing, send an error response
     if (!user_id) {
@@ -27,11 +23,10 @@ const placeOrder = async (req, res) => {
     // Create a new order with all items
     const newOrder = new Order({
       user_id,
-      firstName,
-      lastName,
+      Name,
       phoneNumber,
       district,
-      address,
+      address:addressLine,
       paymentMethod,
       items: items.map(item => ({
         name: item.name,
