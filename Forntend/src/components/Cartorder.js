@@ -9,6 +9,7 @@ const Cartorder= () => {
   const { state } = useLocation();
   const { user_data } = useContext(UserContext);
   const { cartItems } = state; 
+  const [dataset,setdataset] = useState([]);
   const navigate = useNavigate();
   
   const [userDetails, setUserDetails] = useState({
@@ -42,7 +43,8 @@ const Cartorder= () => {
       return;
     }
 
-    const promises = cartItems.map((item)=>new Promise(async (resolve,reject)=>{
+    if(userDetails.paymentMethod === "cashOnDelivery"){
+    const dataset = cartItems.map((item)=>new Promise(async (resolve,reject)=>{
         try {
             const data = {...userDetails,items: [
                 {
@@ -53,23 +55,44 @@ const Cartorder= () => {
                   totalPrice: item.items.totalPrice,
                 }
               ],}
-            console.log(data);
-            
             const response = await axios.post('http://localhost:5000/orders/place',data );
-            resolve(response)
+            alert("Order placed successfully");
+            navigate('/index');
+
           } catch (error) {
             console.log(error);
             reject(error)
           }
     }))
+    setdataset(dataset)
+  }
 
-    const responses = await Promise.all(promises)
+  else if (userDetails.paymentMethod === "payhere"){
+    const totalprice = cartItems.reduce((acc, item) => acc + item.items.totalPrice, 0)
 
-    console.log({responses});
+    const dataset = cartItems.map((item) => {
+      const data = {
+        ...userDetails,
+        items: [
+          {
+            name: item.items.name,
+            image: item.items.image,
+            unitPrice: item.items.unitPrice,
+            quantity: item.items.quantity,
+            totalPrice: item.items.totalPrice,
+          }
+        ]
+      };
+      return data; 
+    });
+    setdataset(dataset);
+    console.log(dataset);
+    navigate('/paymentform',{state:{
+      formdata:dataset,
+      totalprice,
+    }});
+  }
     
-
-    alert('Order placed successfully!');
-    navigate('/index');
   };
   
 
@@ -134,6 +157,7 @@ const Cartorder= () => {
 
         <div className="order-summary-section">
           <h3>Cart Summary</h3>
+          <div className='order-sum'>
           <div className="order-items-wrapper">
             {cartItems.map((item) => (
               <div key={item._id} className="order-item-wrapper">
@@ -147,6 +171,8 @@ const Cartorder= () => {
               </div>
             ))}
           </div>
+          </div>
+          
           <p className="total-value">
             <strong>Total:</strong> Rs. {cartItems.reduce((acc, item) => acc + item.items.totalPrice, 0)}.00
           </p>
@@ -191,7 +217,7 @@ const Cartorder= () => {
         </div>
       </div>
     </div>
-  );
-};
+  );}
+;
 
 export default Cartorder;

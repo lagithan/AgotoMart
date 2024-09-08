@@ -2,7 +2,6 @@
 
 /* Main container for payment and billing */
 .payment-billing-wrapper {
-    padding: 20px;
     font-family: 'Roboto', sans-serif;
     background-color: #f5f5f5;
     min-height: 100vh;
@@ -11,7 +10,7 @@
   /* Heading for the payment and billing section */
   .payment-billing-heading {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 2em;
     color: #333;
   }
@@ -21,22 +20,19 @@
     display: flex;
     gap: 0px;
     max-width: 1200px;
-    margin: auto;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 0px;
   }
   
   /* Billing details section */
   .billing-section, .order-summary-section {
     flex: 1;
     margin: 10px;
-    background-color: #D9E6DB;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: auto;
+    background-color: #c2dbc4;
+    border-radius: 8px;
   }
   
   /* Input fields in the billing form */
@@ -54,6 +50,13 @@
     margin-bottom: 20px;
     border-bottom: 2px solid black;
     padding-bottom: 10px;
+  }
+
+  .order-sum{
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
+    overflow-y: auto;
   }
   
   .order-details-text {
@@ -83,4 +86,32 @@
   .placeorder-button:hover {
     background-color: #032b10;
   }
+
+  
+  .payment-options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .payment-options-wrapper div {
+    display: flex;
+    align-items: center; /* Aligns radio button and label on the same line */
+    gap: 10px;
+  }
+  
+  .payment-options-wrapper input[type="radio"] {
+    margin-right: 10px; /* Space between the radio button and label */
+    transform: translateY(-5px); /* Adjusts the vertical position slightly to center */
+  }
+  
+  .payment-options-wrapper label {
+    font-size: 1em;
+    color: #333;
+  }
+  
+  
+  
+  
   
