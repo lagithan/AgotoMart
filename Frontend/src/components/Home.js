@@ -183,7 +183,9 @@ const Searchcontent = ({ searchItems, handleSelect }) => {
         } finally {
             setLoading(false); 
     };}
+    
 
+    // Using useeffect for searching
     useEffect(() => {
         if (searchItems) {
             fetchProducts();
@@ -214,8 +216,8 @@ const Searchcontent = ({ searchItems, handleSelect }) => {
                     ) : !notAvailable ? (
                         products.length > 0 ? (
                             products.map((item, index) => (
-                                <div className='card' key={index} onClick={() => handleSelect(item)}>
-                                    <img src={item.image.url} alt={item.name} className='card-image' />
+                                <div className='card1' key={index} onClick={() => handleSelect(item)}>
+                                    <img src={item.image.url} alt={item.name} className='card-image1' />
                                     <div className='card-content'>
                                         <h3 className='card-name'>{item.name}</h3>
                                         <p style={{ color: 'green', fontWeight: '400' }}>Rs.{item.price}</p>

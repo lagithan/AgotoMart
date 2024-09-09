@@ -18,7 +18,9 @@ const ProductDetails = () => {
     image: null
   });
   const [searchTerm, setSearchTerm] = useState('');
+  
 
+  //fetch all products
   useEffect(() => {
     fetchProducts();
   }, []);

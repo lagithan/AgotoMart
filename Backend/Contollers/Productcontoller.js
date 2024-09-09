@@ -4,7 +4,10 @@ import { cloudinary } from "../Middleware/cloudinary.js";
 const Addproduct= async (req,res) =>{
     try {
         const { name, category, price, description, image ,quantity } = req.body;
-      
+         
+
+        // send the api request to the cloudinary to save the image
+        
           const upim = await cloudinary.uploader.upload(image, {
             folder: 'AgroMart',
           });
@@ -31,13 +34,7 @@ const Addproduct= async (req,res) =>{
 
 const getproduct = async (req, res) => {
     try {
-      const products = await Product.find()
-        .populate({
-          path: 'image',
-          model: 'Image', 
-          select: 'filename contentType uploadDate', 
-        })
-        .exec();
+      const products = await Product.find();
       await res.json(products);
     } catch (error) {
       console.error('Error fetching products:', error);
