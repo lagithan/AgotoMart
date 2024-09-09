@@ -1,85 +1,60 @@
-/* General Styling */
+
 .saved-payment-methods {
-    width: 80%;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-
-
 .header2 {
-    display: flex;
-    justify-content: flex-end; /* This will move the button to the right */
     margin-bottom: 20px;
-    width: 100%; /* Ensure the header container spans the full width */
 }
 
 .add-card-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
+    padding: 12px 24px; /* Slightly larger button */
+    background-color: #179756;
+    color: #fff;
     border: none;
-    justify-content: center;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-.add-card-button:hover {
-    background-color: #218838;
-}
-.saved-payment-methods h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    text-align: center; /* Center-aligning the title */
-}
-
-.success-message {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.payment-methods-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.payment-methods-table th,
-.payment-methods-table td {
+.card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 700px; /* Increased width */
+    height: 180px; /* Increased height */
+    padding: 30px; /* Increased padding */
+    margin-bottom: 30px; /* Increased margin between cards */
     border: 1px solid #ccc;
-    padding: 15px;
-    text-align: left;
+    border-radius: 10px; /* Slightly rounder corners */
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Larger shadow */
+    position: relative;
 }
 
-.payment-methods-table th {
-    background-color: #D1EED8;
+.card-image {
+    width: 120px; /* Increased width of image */
+    height: 80px; /* Increased height of image */
+    margin-right: 30px; /* More space between image and details */
 }
 
-.payment-methods-table tr:nth-child(even) {
-    background-color: #f8f9fa;
+.card-details {
+    flex-grow: 1;
+    font-size: 16px; /* Slightly larger text */
 }
 
-.options-cell {
-    position: relative; /* Make sure the options menu is positioned relative to this cell */
+.card-options {
+    position: relative;
 }
 
 .more-options-button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px;
-    background-color: #28a745;
+    background-color: #179756;
     color: white;
-}
-
-.more-options-button:hover {
-    color: #007bff;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
 }
 
 .options-menu {
@@ -87,53 +62,26 @@
     top: 100%;
     right: 0;
     background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    padding: 5px;
-    display: flex; /* Ensures buttons are next to each other */
-    gap: 10px; /* Adds space between the buttons */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Larger shadow */
+    border-radius: 6px;
 }
 
 .update-button, .delete-button {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    display: block;
+    padding: 12px;
+    width: 110px; /* Slightly wider buttons */
     cursor: pointer;
-    font-size: 16px;
+    background-color: #179756;
     color: white;
-    font-weight: bold;
+    border: none;
+    margin: 6px;
 }
 
-.update-button {
-    background-color: #179756; /* Green background */
+.update-button:hover, .delete-button:hover {
+    background-color: #0056b3;
 }
 
-.update-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-.delete-button {
-    background-color: #f44336; /* Red background */
-}
-
-.delete-button:hover {
-    background-color: #da190b; /* Darker red on hover */
-}
-
-.update-button::before, .delete-button::before {
-    content: '';
-    display: inline-block;
-    margin-right: 8px;
-}
-
-.update-button::before {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18px" width="18px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>'); /* Edit icon */
-}
-
-.delete-button::before {
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" height="18px" width="18px" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1z"/></svg>'); /* Trash icon */
-}
+.card-emoji {
+    font-size: 80px; /* Adjust the size of the emoji */
+    margin-right: 20px;
+  }

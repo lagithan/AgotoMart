@@ -18,7 +18,7 @@ const Update = () => {
   useEffect(() => {
     const fetchPaymentMethod = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/payment/get/${user_data.id}`);
+        const response = await axios.get(`http://localhost:4000/payment/get/${user_data.id}`);
         const paymentMethod = response.data.find(method => method._id === id); // Find the method with the specific ID
 
         if (paymentMethod) {
@@ -74,7 +74,7 @@ const Update = () => {
       };
 
       try {
-        const response = await axios.put(`http://localhost:5000/payment/update/${id}`, updatedPayment, {
+        const response = await axios.put(`http://localhost:4000/payment/update/${id}`, updatedPayment, {
           headers: {
             'Content-Type': 'application/json',
           },

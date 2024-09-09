@@ -96,7 +96,9 @@ const deleteuser = async (req, res) => {
 
 const getaddress =async (req,res)=>{
   try{
-    const result = await address.findOne({userid:req.params.id})
+    const result = await address
+    .findOne({ userid: req.params.id })   
+    .sort({ updatedAt: -1 })       
     res.status(201).json(result)
   }
 

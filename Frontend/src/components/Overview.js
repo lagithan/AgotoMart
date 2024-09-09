@@ -165,7 +165,7 @@ const Overview = ({ details = {} }) => {
     };
 
     fetchAddress();
-  }, ['']);
+  });
 
   return (
     <div className="userprofile">
@@ -204,7 +204,6 @@ const Overview = ({ details = {} }) => {
           </button>
         </div>
 
-        {/* Edit Account Modal */}
         {editAccount && (
           <div className="modal">
             <div className="modal-content">
